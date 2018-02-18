@@ -44,7 +44,7 @@ def cylindrical_faces(N_theta, N_z, close_loop=True):
     Generate the face definitions for an object of cylindrical geometry
     optionally closing the loop
     """
-    faces= []
+    faces = []
 
     for j in range(0, N_z - 1):
 
@@ -70,7 +70,7 @@ def cylindrical_faces(N_theta, N_z, close_loop=True):
                     upper_right -= N_theta - 1
 
                 # Add the face to the mesh
-                faces.append( (lower_left, lower_right, upper_right, upper_left) )
+                faces.append((lower_left, lower_right, upper_right, upper_left))
 
     return np.array(faces)
 
