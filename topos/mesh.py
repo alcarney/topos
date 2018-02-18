@@ -1,31 +1,54 @@
+from enum import Enum
 import numpy as np
+
+
+class Coord(Enum):
+    CARTESIAN = 1
+    CYLINDRICAL = 2
 
 
 class Mesh(object):
 
-    def __init__(self, name=None, vertices=None, faces=None):
+    def __init__(self, name=None, vertices=None, faces=None, coord=None):
+
+        if name is not None and not isinstance(name, (str,)):
+                raise TypeError('Name property must be a string!')
+
+        if vertices is not None:
+
+            if not isinstance(vertices, (np.ndarray,)):
+                raise TypeError('Vertices must be a numpy array with shape (n, 3)')
+
+            vert_shape = vertices.shape
+
+            if len(vert_shape) != 2 or vert_shape[1] != 3:
+                raise TypeError('Vertices must be a numpy array with shape (n, 3)')
+
+        if faces is not None:
+
+            if not isinstance(faces, (np.ndarray)):
+                raise TypeError('Faces must be a numpy array with shape (n, 4)')
+
+            face_shape = faces.shape
+
+            if len(face_shape) != 2 or face_shape[1] != 4:
+                raise TypeError('Faces must be a numpy array with shape (n, 4)')
+
         self._name = name
         self._vertices = vertices
         self._faces = faces
-        self._position = np.array([0, 0, 0])
+        self._coord = Coord.CARTESIAN if coord is None else coord
 
     @property
     def name(self):
-        if self._name is None:
-            return ""
-        else:
-            return self._name
+        return "" if self._name is None else self._name
 
-    @property
-    def position(self):
-        return self._position
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, (str,)):
+            raise TypeError("Name property must be a string!")
 
-    @position.setter
-    def position(self, pos):
-        if pos.shape != (3,):
-            raise TypeError("Position must be a numpy array of form [x, y, z]")
-
-        self._position = pos
+        self._name = value
 
     @property
     def faces(self):
@@ -40,7 +63,18 @@ class Mesh(object):
 
     @property
     def vertices(self):
-        return self._vertices + self._position
+        if self._coord == Coord.CARTESIAN:
+            return self._vertices
+
+        if self._coord == Coord.CYLINDRICAL:
+            TS = self._vertices[:, 0]
+            ZS = self._vertices[:, 1]
+            RS = self._vertices[:, 2]
+
+            XS = RS * np.cos(TS)
+            YS = RS * np.sin(TS)
+
+            return np.dstack([XS, YS, ZS])[0]
 
     @property
     def num_vertices(self):

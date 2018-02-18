@@ -2,3 +2,7 @@ env
 .eggs
 topos.egg-info
 dist
+.hypothesis
+__pycache__
+.pytest_cache
+.ipynb_checkpoints
