@@ -63,18 +63,7 @@ class Mesh(object):
 
     @property
     def vertices(self):
-        if self._coord == Coord.CARTESIAN:
             return self._vertices
-
-        if self._coord == Coord.CYLINDRICAL:
-            TS = self._vertices[:, 0]
-            ZS = self._vertices[:, 1]
-            RS = self._vertices[:, 2]
-
-            XS = RS * np.cos(TS)
-            YS = RS * np.sin(TS)
-
-            return np.dstack([XS, YS, ZS])[0]
 
     @property
     def num_vertices(self):
