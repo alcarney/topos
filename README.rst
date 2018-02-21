@@ -27,7 +27,7 @@ Topos
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/alcarney/topos/v0.0.4.svg
     :alt: Commits since latest release
-    :target: https://github.com/alcarney/topos/compare/v0.0.4...master
+    :target: https://github.com/alcarney/topos/compare/v0.0.4...dev
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/topos.svg
     :alt: Supported versions
