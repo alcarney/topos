@@ -25,9 +25,9 @@ Topos
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/topos
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/alcarney/topos/v0.0.4.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/alcarney/topos/latest.svg
     :alt: Commits since latest release
-    :target: https://github.com/alcarney/topos/compare/v0.0.4...dev
+    :target: https://github.com/alcarney/topos/compare/master...dev
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/topos.svg
     :alt: Supported versions
