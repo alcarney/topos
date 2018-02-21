@@ -1,3 +1,8 @@
+0.0.3 21/02/2018
+================
+
+Another "release" that will hopefully work this time
+
 0.0.2 21/02/2018
 ================
 
