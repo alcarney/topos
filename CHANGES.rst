@@ -1,5 +1,8 @@
-Unreleased
-==========
+0.0.2 21/02/2018
+================
+
+This release is mainly to test the deploy: option on travis although there
+have been some changes
 
 Added
 -----
