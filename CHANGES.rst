@@ -1,3 +1,8 @@
+0.0.4 21/03/2018
+================
+
+Setting the release to only be on the test_travis task and python version 3.6
+
 0.0.3 21/02/2018
 ================
 
