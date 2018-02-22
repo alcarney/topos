@@ -9,7 +9,7 @@ Topos
     * - code
       - |travis| |coveralls|
     * - pypi
-      - |version| |commits-since| |supported-versions|
+      - |version| |supported-versions|
 
 .. |travis| image:: https://travis-ci.org/alcarney/topos.svg?branch=dev
     :target: https://travis-ci.org/alcarney/topos
@@ -24,10 +24,6 @@ Topos
 .. |version| image:: https://img.shields.io/pypi/v/topos.svg
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/topos
-
-.. |commits-since| image:: https://img.shields.io/github/commits-since/alcarney/topos/latest.svg
-    :alt: Commits since latest release
-    :target: https://github.com/alcarney/topos/compare/master...dev
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/topos.svg
     :alt: Supported versions
