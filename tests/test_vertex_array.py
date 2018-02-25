@@ -1,5 +1,5 @@
 from pytest import raises
-from hypothesis import given
+from hypothesis import given, assume
 from unittest.mock import patch
 import numpy as np
 import numpy.random as npr
@@ -80,8 +80,17 @@ class TestProperties(object):
     @given(length=size)
     def test_repr(self, length):
 
+        assume(length != 1)
+
         vs = DummyArray(np.zeros((length, 3)))
         s = 'Dummy Array: {} vertices'.format(length)
+
+        assert s == str(vs)
+
+    def test_repr_single(self):
+
+        vs = DummyArray(np.zeros((1, 3)))
+        s = 'Dummy Array: 1 vertex'
 
         assert s == str(vs)
 
