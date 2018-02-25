@@ -5,6 +5,7 @@ python:
 
 env:
     - "TASK=lint"
+    - "TASK=linkcheck"
     - "TASK=doctest"
     - "TASK=test_travis"
 
