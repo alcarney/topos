@@ -10,7 +10,7 @@ env:
     - "TASK=test_travis"
 
 before_install:
-    - "pip install pipenv"
+    - "pip install pipenv coveralls"
 
 install:
     - "pipenv install --dev"
