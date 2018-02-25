@@ -1,21 +1,37 @@
+Unreleased
+----------
+
+**Added**
+
+
+*Code*
+
+- New :code:`VertexArray` abstract class along with specific :code:`Cartesian`
+  and :code:`Cylindrical` implementations.
+
+*Docs*
+
+- Added *Troubleshooting* page that attempts to detail all errors you might
+  encounter using :code:`topos` and what you can do to fix them.
+
 0.0.4 21/03/2018
-================
+----------------
 
 Setting the release to only be on the test_travis task and python version 3.6
 
 0.0.3 21/02/2018
-================
+----------------
 
 Another "release" that will hopefully work this time
 
 0.0.2 21/02/2018
-================
+----------------
 
 This release is mainly to test the deploy: option on travis although there
 have been some changes
 
-Added
------
+**Added**
+
 - Mesh class to manage and export object data
 - Mesh data can be exported in .obj format
 - Generators that can generate either a plane or a uncapped cylinder
@@ -28,6 +44,6 @@ Added
 
 
 0.0.1 17/02/2018
-================
+----------------
 
 Initial release
