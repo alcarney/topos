@@ -1,4 +1,4 @@
-from .mesh import Mesh, Coord
+from .mesh import Mesh
 from .generators import planar_faces, planar_vertices,\
         cylindrical_faces, cylindrical_vertices
 
@@ -19,5 +19,4 @@ class Cylinder(Mesh):
         verts = cylindrical_vertices(N_theta, N_z)
         faces = cylindrical_faces(N_theta, N_z)
 
-        super().__init__(name="Cylinder", vertices=verts, faces=faces,
-                         coord=Coord.CYLINDRICAL)
+        super().__init__(name="Cylinder", vertices=verts, faces=faces)
