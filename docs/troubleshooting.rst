@@ -109,6 +109,7 @@ have a compatible shape which is :code:`(3,)` - one value for each coordinate.
 For example:
 
 .. doctest:: va-errors
+    :options: +NORMALIZE_WHITESPACE
 
     >>> vs = np.array([[1., 2., 3.], [4., 5., 6.]])
     >>> vert_array = Cartesian(vs)
