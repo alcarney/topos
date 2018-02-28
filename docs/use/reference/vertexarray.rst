@@ -1,10 +1,40 @@
-VertexArray
-===========
+VertexArrays
+============
 
 The :code:`VertexArray` family of objects are responsible for managing and
-manipulating collections of vertices.
+manipulating collections of vertices. Their use is identical the only
+difference being which coordinate system you want to use.
+
+.. todo::
+
+    Link to explanations on the different systems we support and a discussion
+    on which situations they are useful for.
 
 Currently :code:`topos` comes with the following VertexArray Objects
 
-- :code:`Cartesian`
-- :code:`Cylindrical`
+- :code:`Cartesian`: For vertices using the :term:`cartesian coordinate` system
+- :code:`Cylindrical`: For vertices using the :term:`cylindrical coordinate` system
+
+Intialisation
+-------------
+
+The :code:`VertexArray` objects are just wrappers over a :term:`numpy array`
+providing additional features that are useful when treating these arrays as a
+list of vertices. So create your own vertex array simply pass a numpy array
+with the right shape to one of these objects.
+
+.. doctest:: ref-vertx-arrays
+
+    >>> import numpy as np
+    >>> from topos.vertices import Cartesian
+    >>> vs = np.array([[1., 2., .3], [4., 5., 6.]])
+    >>> Cartesian(vs)
+    Cartesian Array: 2 vertices
+
+Similarly for the :code:`Cylindrical` object
+
+.. doctest:: ref-vertx-arrays
+
+    >>> from topos.vertices import Cylindrical
+    >>> Cylindrical(vs)
+    Cylindrical Array: 2 vertices

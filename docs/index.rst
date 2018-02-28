@@ -7,5 +7,6 @@ About Topos
 
     use/index
     troubleshooting
+    glossary
 
     changes
