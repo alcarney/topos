@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -E -a
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = Topos
 SOURCEDIR     = .
@@ -20,4 +20,4 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 live:
-	sphinx-autobuild -b html "$(SOURCEDIR)" $(BUILDDIR)/html
+	sphinx-autobuild -b html "$(SOURCEDIR)" $(BUILDDIR)/html $(SPHINXOPTS)

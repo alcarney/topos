@@ -23,12 +23,11 @@ project = 'Topos'
 copyright = '2018, Alex Carney'
 author = 'Alex Carney'
 
-# The short X.Y version
-version = ''
 
 # The full version, including alpha/beta/rc tags
 exec(open('../topos/version.py').read())
 release = __version__
+version = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -83,7 +82,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'pyramid'
+html_theme = 'basic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

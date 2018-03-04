@@ -34,7 +34,7 @@ VA01
 
 This class of errors are all related to the creation of new vertex arrays
 
-.. warning::
+.. error::
 
     VA01.1: Vertex array must be represented by a numpy array
 
@@ -57,7 +57,7 @@ Passing in your vertices in a numpy array will fix this issue
     >>> Cartesian(vs)
     Cartesian Array: 1 vertex
 
-.. warning::
+.. error::
 
     VA01.2: Vertex array must have shape (n, 3)
 
@@ -97,9 +97,9 @@ array with a single vertex you have to wrap it in an extra list like so
 VA02
 ^^^^
 
-.. warning::
+.. error::
 
-    VA02.1: Incompatible shape (??), array must have shape (3,)
+    :code:`VA02.1: Incompatible shape (??), array must have shape (3,)`
 
 Vertex arrays support addition with a few different types of object. One of
 these is a numpy array which you can use to move a whole collection of vertices
