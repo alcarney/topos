@@ -3,4 +3,5 @@ Reference
 
 .. toctree::
 
+    plane
     vertexarray
