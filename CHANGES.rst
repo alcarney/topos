@@ -1,18 +1,18 @@
-Unreleased
-----------
+0.05 Unreleased
+---------------
 
-**Added**
+**Users**
 
-
-*Code*
-
-- New :code:`VertexArray` abstract class along with specific :code:`Cartesian`
-  and :code:`Cylindrical` implementations.
-
-*Docs*
-
-- Added *Troubleshooting* page that attempts to detail all errors you might
+- **NEW:CODE** :code:`Cartesian` and :code:`Cylindrical` classes which handle
+  vertex arrays in Cartesian and Cylindrical coordinates respectively.
+- **NEW:DOCS** *Troubleshooting* page that attempts to detail all errors you might
   encounter using :code:`topos` and what you can do to fix them.
+
+
+**Contributors**
+
+- **NEW:DOCS** :code:`showmodel` directive that will take a name, obj file and
+  mtl file (all optional) in insert a interactive 3D preview of the given mesh.
 
 0.0.4 21/03/2018
 ----------------
