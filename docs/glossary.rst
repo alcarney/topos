@@ -15,7 +15,7 @@ Glossary
         "height" coordinate you would find in the cartesian system.
 
     numpy array
-        `Numpy <https://numpy.scipy.org/>`_ is a Python package used heavily in
+        `Numpy <http://www.numpy.org/>`_ is a Python package used heavily in
         the Academic and Data Science communities for manipulating array-like
         data structures such as matrices, images and astronomical data. Topos
         makes use of these arrays extensively for manipulating and managing
