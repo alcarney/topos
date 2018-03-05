@@ -3,12 +3,24 @@ body {
     background: white; /*#666666;*/
     color: black;
     display: grid;
-    grid-template:
-       [row1-start] "header navbar navbar" [row1-end]
-       [row2-start] "sidebar main main" [row2-end]
-       [row3-start] "footer footer footer" [row3-end]
-        / 300px auto auto;
+    grid-template-areas:
+        "header"
+        "navbar"
+        "main"
+        "sidebar"
+        "footer";
 }
+
+@media (min-width: 1000px) {
+    body {
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+            "header navbar"
+            "sidebar main"
+            "footer footer";
+    }
+}
+
 
 a {
     text-decoration: none;

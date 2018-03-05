@@ -14,7 +14,10 @@
 #
 import os
 import sys
+sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
+
+from directives.show_model import ShowModelDirective, showmodel_node
 
 
 # -- Project information -----------------------------------------------------
@@ -31,6 +34,13 @@ version = __version__
 
 
 # -- General configuration ---------------------------------------------------
+
+def setup(app):
+    """
+    Here is where we register all the custom directives
+    """
+    app.add_node(showmodel_node)
+    app.add_directive('showmodel', ShowModelDirective)
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #

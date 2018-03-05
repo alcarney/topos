@@ -8,12 +8,13 @@ name = 'pypi'
 [packages]
 
 numpy = "*"
-sphinx-autobuild = "*"
 
 
 [dev-packages]
 
 hypothesis = "*"
+jupyter = "*"
 pytest = "*"
 sphinx = "*"
+sphinx-autobuild = "*"
 "flake8" = "*"

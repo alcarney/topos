@@ -1,0 +1,71 @@
+<script>
+    let canvas;
+    let camera, controls, scene, renderer;
+
+    // Setup three.js
+    function init() {
+        // Grab the element where we will place the preview
+        canvas = document.getElementById("${name}-preview");
+
+        // Setup a camera
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.x = 2;
+        camera.position.y = 2;
+        camera.position.z = 3;
+
+
+        // A Scene and some basic lighting
+        scene = new THREE.Scene();
+        ambient = new THREE.AmbientLight(0xffffff, 1.0);
+        scene.add(ambient);
+
+        // Now to load the materials file
+        let mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath("/_static/obj/");
+        mtlLoader.load('${mtl}', function(materials) {
+
+            materials.preload();
+
+            let objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.setPath("/_static/obj/");
+            objLoader.load("${obj}", function(obj) {
+                scene.add(obj);
+            });
+
+        });
+
+        // Set up the Renderer
+        renderer = new THREE.WebGLRenderer({canvas: canvas});
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
+        renderer.setViewport(0, 0, canvas.clientWidth, canvas.clientHeight);
+
+        // Setup the viewport controls
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+        controls.enableZoom = false;
+
+    }
+
+    // The function called each frame to draw
+    function render() {
+        requestAnimationFrame(render);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    // Only run our code once everything has loaded
+    window.onload = function () {
+        if (!Detector.webgl) {
+            Detector.addGetWebGLMessage();
+        }
+
+        init();
+        render();
+    };
+</script>
+<canvas id="${name}-preview"></canvas>
