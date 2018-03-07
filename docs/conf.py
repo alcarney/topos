@@ -34,14 +34,6 @@ version = __version__
 
 
 # -- General configuration ---------------------------------------------------
-
-def setup(app):
-    """
-    Here is where we register all the custom directives
-    """
-    app.add_node(showmodel_node)
-    app.add_directive('showmodel', ShowModelDirective)
-
 # If your documentation needs a minimal Sphinx version, state it here.
 #
 # needs_sphinx = '1.0'
@@ -52,10 +44,11 @@ def setup(app):
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.doctest',
     'sphinx.ext.mathjax',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
 
@@ -174,8 +167,23 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+autoclass_content = "both"
+autodoc_member_order = "groupwise"
+autodoc_default_flags = [
+    "members",
+    "inherited-members",
+    "private-members",
+]
 
-# -- Options for todo extension ----------------------------------------------
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', None)
+}
 
-# If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# -- Custom configuration ----------------------------------------------------
+def setup(app):
+    """Here is where we register all our extras."""
+    app.add_node(showmodel_node)
+    app.add_directive('showmodel', ShowModelDirective)

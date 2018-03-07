@@ -20,3 +20,6 @@ Glossary
         data structures such as matrices, images and astronomical data. Topos
         makes use of these arrays extensively for manipulating and managing
         mesh data.
+
+    w.r.t
+        with respect to

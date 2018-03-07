@@ -3,6 +3,7 @@ body {
     background: white; /*#666666;*/
     color: black;
     display: grid;
+    grid-template-columns: auto;
     grid-template-areas:
         "header"
         "navbar"
@@ -13,12 +14,17 @@ body {
 
 @media (min-width: 1000px) {
     body {
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 250px auto;
+        grid-template-rows: 75px auto 150px;
         grid-template-areas:
             "header navbar"
             "sidebar main"
             "footer footer";
     }
+}
+
+:target {
+    background: #e18a074d;
 }
 
 
@@ -196,9 +202,12 @@ a:hover {
 }
 
 /* -- Inline Code -- */
+code.literal {
+    border-bottom: 1px dashed black;
+}
+
 code.literal span.pre {
     font-size: 16px;
-    border-bottom: 1px dashed black;
 }
 
 /*-- Glossary -- */
@@ -210,4 +219,49 @@ dl.glossary dt {
     margin-top: 15px;
     text-decoration: underline;
     text-transform: capitalize;
+}
+
+/*-- Autodoc --*/
+dl.class,
+dl.module,
+dl.attribute {
+    font-size: 16px;
+}
+
+dl.class {
+    margin-left: 25px;
+    margin-bottom: 75px;
+}
+
+dl.class dt {
+    margin: 10px 0;
+    margin-left: 10px;
+    border-bottom: solid 1px black;
+}
+
+dl.class em {
+    font-style: normal;
+    color: #e18a07;
+}
+
+dl.class p {
+    margin: 20px 0;
+}
+
+dl.method > dt:before {
+    content:"method ";
+    color: #e18a07;
+}
+
+dl.attribute > dt:before {
+    content:"attribute ";
+    color: #e18a07;
+}
+
+dl > dt > a {
+    float: right;
+}
+
+tr.field {
+    text-align: left;
 }

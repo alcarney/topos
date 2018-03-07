@@ -3,9 +3,10 @@ About Topos
 ===========
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     use/index
+    contribute/index
     troubleshooting
     glossary
 
