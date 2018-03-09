@@ -33,20 +33,29 @@ class Error(object):
         raise self.err_type(msg)
 
 
-errors = {
+ERRORS = {
     # Mesh Errors
     'ME01.1': Error(TypeError, "Vertices must be represented by a Vertex Array", "#me01"),
 
-    # Vertex Array Errors
+    # -- Vertex Array Errors --
+
+    # __init__
     'VA01.1': Error(TypeError, 'Vertex array must be represented by a numpy array', "#va01"),
     'VA01.2': Error(TypeError, "Vertex array must have shape (n, 3)", "#va01"),
-    'VA02.1': Error(TypeError, 'Incompatible shape {shape}, array must have shape (3,)', '#va02')
+
+    # __add__
+    'VA02.1': Error(TypeError, 'Incompatible shape {shape}, array must have shape (3,)', '#va02'),
+    'VA02.2': Error(TypeError, "Function can have at most 3 parameters", "#va02"),
+
+    # __getitem__
+    'VA03.1': Error(TypeError, 'Coordinates must be specified using an iterable', '#va03'),
+    'VA03.2': Error(ValueError, 'Unknown coordinate variable {var}', "#va03"),
 }
 
 
 def raiseError(err_code, *args, **kwargs):
 
-    if err_code not in errors:
+    if err_code not in ERRORS:
         raise RuntimeError('Unknown Error code: ' + err_code)
 
-    errors[err_code].raiseError(err_code, *args, **kwargs)
+    ERRORS[err_code].raiseError(err_code, *args, **kwargs)

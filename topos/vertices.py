@@ -23,6 +23,8 @@ class VertexArray(ABC):
     - :py:attr:`cylindrical` Returns vertices :term:`w.r.t` Cylindrical coordinates
     """
 
+    _coord_vars = 'xyzrt'
+
     def __init__(self, data):
         """
         :param data: Array with shape :code:`(n, 3)` representing the vertices
@@ -54,6 +56,23 @@ class VertexArray(ABC):
         s += 'Array: {} vertices'.format(self.length)
         return s
 
+    def __getitem__(self, key):
+
+        if not isinstance(key, (tuple,str,list,set)):
+            raiseError('VA03.1')
+
+        coords = []
+
+        for c in key:
+
+            if c not in self._coord_vars:
+                raiseError('VA03.2', var=c)
+
+            coords.append(self.__getattribute__(c))
+
+        return np.dstack(coords)[0]
+
+
     def __add__(self, other):
 
         if isinstance(other, (VertexArray,)):
@@ -73,6 +92,13 @@ class VertexArray(ABC):
 
             vs = self.native()
             return self.fromarray(vs + other)
+
+        if callable(other):
+
+            f, sys = prepare_vertex_array_function(other)
+            vs = self.native()
+
+            return self.fromarray(vs)
 
     def fmt(self, fmtstr, prefix="", suffix="", sep="\n"):
         """Return a string representation of the array according to a given
@@ -152,6 +178,30 @@ class VertexArray(ABC):
         """Return the vertices with respect to the cylindrical coordinate system."""
         pass
 
+    @property
+    def x(self):
+        """Return an array of just the x coordinates."""
+        return self.cartesian[:, 0]
+
+    @property
+    def y(self):
+        """Return an array of just the y coordinates."""
+        return self.cartesian[:, 1]
+
+    @property
+    def z(self):
+        """Return an array of just the z coordinates."""
+        return self.cartesian[:, 2]
+
+    @property
+    def r(self):
+        """Return an array of just the r coordinates."""
+        return self.cylindrical[:, 2]
+
+    @property
+    def t(self):
+        """Return an array of just the t coordinates."""
+        return self.cylindrical[:, 0]
 
 
 class Cartesian(VertexArray):

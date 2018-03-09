@@ -26,7 +26,8 @@ setup(name='topos',
       license='MIT',
       packages=['topos'],
       install_requires=[
-          'numpy'
+          'numpy',
+          'magus'
       ],
       setup_requires=['pytest-runner'],
       test_suite='tests',
