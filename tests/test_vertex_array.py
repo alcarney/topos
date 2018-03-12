@@ -100,10 +100,10 @@ class TestProperties(object):
         arr = DummyArray(np.array([v]))
         s = arr.fmt('{} {} {}')
 
-        assert s == '{} {} {}\n'.format(*v)
+        assert s == '{} {} {}'.format(*v)
 
         s = arr.fmt('{1} {2} {0}')
-        assert s == '{1} {2} {0}\n'.format(*v)
+        assert s == '{1} {2} {0}'.format(*v)
 
     @given(length=size)
     def test_fmt_many(self, length):
@@ -112,8 +112,74 @@ class TestProperties(object):
         s = arr.fmt('{} {} {}')
 
         segments = s.split('\n')
-        segments.remove('')
         assert len(segments) == length
+
+    @given(length=size)
+    def test_x(self, length):
+
+        arr = npr.rand(length, 3)
+        VS = DummyArray(arr)
+
+        assert (VS.x == arr[:, 0]).all()
+
+    @given(length=size)
+    def test_y(self, length):
+
+        arr = npr.rand(length, 3)
+        VS = DummyArray(arr)
+
+        assert (VS.y == arr[:, 1]).all()
+
+    @given(length=size)
+    def test_z(self, length):
+
+        arr = npr.rand(length, 3)
+        VS = DummyArray(arr)
+
+        assert (VS.z == arr[:, 2]).all()
+
+    @given(length=size)
+    def test_r(self, length):
+
+        arr = npr.rand(length, 3)
+        VS = DummyArray(arr)
+
+        assert (VS.r == arr[:, 2]).all()
+
+    @given(length=size)
+    def test_t(self, length):
+
+        arr = npr.rand(length, 3)
+        VS = DummyArray(arr)
+
+        assert (VS.t == arr[:, 0]).all()
+
+
+class TestGetItem(object):
+
+    @given(length=size)
+    def test_get_single(self, length):
+
+        vs = npr.rand(length, 3)
+        verts = DummyArray(vs)
+
+        arr = verts['x']
+        arr.shape = (length,)
+
+        assert (arr == vs[:,0]).all()
+
+
+    @given(length=size)
+    def test_get_many(self, length):
+
+        vs = npr.rand(length, 3)
+        verts = DummyArray(vs)
+
+        arr = verts['rzt']
+
+        assert(arr[:,0] == vs[:,2]).all()
+        assert(arr[:,1] == vs[:,2]).all()
+        assert(arr[:,2] == vs[:,0]).all()
 
 
 class TestOperations(object):

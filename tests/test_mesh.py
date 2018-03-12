@@ -26,6 +26,12 @@ class TestInit(object):
         Mesh(verts=2)
         Err.assert_called_once_with('ME01.1')
 
+    @patch('topos.mesh.raiseError')
+    def test_bad_faces(self, Err):
+
+        Mesh(faces=2)
+        Err.assert_called_once_with('ME01.2')
+
 
 class TestProperties(object):
 

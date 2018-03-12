@@ -2,15 +2,16 @@ import numpy as np
 from math import pi
 
 
-def planar_vertices(N):
+def planar_vertices(N, xmin=0., xmax=1., ymin=0., ymax=1.):
     """
     Generate a grid of vertices in the X-Y Plane on
     :math:`[0, 1] \times [0, 1]` at the given resolution
     N
     """
     # Generate a grid of x-y values at the desired resolution
-    xs = np.linspace(0, 1, N)
-    XS, YS = np.meshgrid(xs, xs)
+    xs = np.linspace(xmin, xmax, N)
+    ys = np.linspace(ymin, ymax, N)
+    XS, YS = np.meshgrid(xs, ys)
 
     # Reshape the grids to be one long array
     XS.shape = (N*N,)
@@ -18,7 +19,7 @@ def planar_vertices(N):
     zeros = np.zeros(XS.shape)
 
     # Return the vertices all at z=0
-    return np.dstack([XS, YS, zeros])
+    return np.dstack([XS, YS, zeros])[0]
 
 
 def cylindrical_vertices(N_theta, N_z):

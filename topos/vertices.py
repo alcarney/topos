@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from magus.inspect import get_parameters
 
 
+from .codefu import prepare_vertex_array_function
 from .errors import raiseError
 
 
@@ -34,7 +36,6 @@ class VertexArray(ABC):
 
         """
 
-
         if not isinstance(data, (np.ndarray,)):
             raiseError('VA01.1')
 
@@ -58,7 +59,7 @@ class VertexArray(ABC):
 
     def __getitem__(self, key):
 
-        if not isinstance(key, (tuple,str,list,set)):
+        if not isinstance(key, (tuple, str, list, set)):
             raiseError('VA03.1')
 
         coords = []
@@ -72,6 +73,19 @@ class VertexArray(ABC):
 
         return np.dstack(coords)[0]
 
+    def __setitem__(self, coords, fn):
+
+        args = self[get_parameters(fn)]
+
+        vfn = np.vectorize(fn)
+
+        new_values = vfn(args)
+
+        idx = 0
+        for c in coords:
+
+            self.__setattr__(c, new_values[:, idx])
+            idx += 1
 
     def __add__(self, other):
 
@@ -93,12 +107,7 @@ class VertexArray(ABC):
             vs = self.native()
             return self.fromarray(vs + other)
 
-        if callable(other):
-
-            f, sys = prepare_vertex_array_function(other)
-            vs = self.native()
-
-            return self.fromarray(vs)
+        raiseError('VA02.3', type=type(other))
 
     def fmt(self, fmtstr, prefix="", suffix="", sep="\n"):
         """Return a string representation of the array according to a given
@@ -160,6 +169,24 @@ class VertexArray(ABC):
         """
         pass
 
+    def _coord_setter(self, value, coord):
+        """This handles the boilerplate required to set a particular coordinate
+        in the array. Checking the type and shape etc.
+        """
+
+        if isinstance(value, (np.ndarray,)):
+
+            shape = value.shape
+
+            if len(shape) != 1 or shape[0] != self.length:
+                raiseError("VA04.1", length=self.length)
+
+            # Set the coordinate
+            self.__getattribute__('set_' + coord)(value)
+        else:
+            raiseError("VA04.1")
+
+
     @property
     @abstractmethod
     def system(self):
@@ -183,25 +210,69 @@ class VertexArray(ABC):
         """Return an array of just the x coordinates."""
         return self.cartesian[:, 0]
 
+    @x.setter
+    def x(self, value):
+        """Set just the x coordinate of each vertex to a new value."""
+        self._coord_setter(value, 'x')
+
+    @abstractmethod
+    def set_x(self, value):
+        pass
+
     @property
     def y(self):
         """Return an array of just the y coordinates."""
         return self.cartesian[:, 1]
+
+    @y.setter
+    def y(self, value):
+        """Set just the y coordinate of each vertex to a new value"""
+        self._coord_setter(value, 'y')
+
+    @abstractmethod
+    def set_y(self, value):
+        pass
 
     @property
     def z(self):
         """Return an array of just the z coordinates."""
         return self.cartesian[:, 2]
 
+    @z.setter
+    def z(self, value):
+        """Set just the z coordinate of each vertex to a new value"""
+        self._coord_setter(value, 'z')
+
+    @abstractmethod
+    def set_z(self, value):
+        pass
+
     @property
     def r(self):
         """Return an array of just the r coordinates."""
         return self.cylindrical[:, 2]
 
+    @r.setter
+    def r(self, value):
+        """Set just the r coordinate of each vertex to a new value."""
+        self._coord_setter(value, 'r')
+
+    @abstractmethod
+    def set_r(self, value):
+        pass
+
     @property
     def t(self):
         """Return an array of just the t coordinates."""
         return self.cylindrical[:, 0]
+
+    @t.setter
+    def t(self, value):
+        self._coord_setter(value, 't')
+
+    @abstractmethod
+    def set_t(self, value):
+        pass
 
 
 class Cartesian(VertexArray):
@@ -215,6 +286,32 @@ class Cartesian(VertexArray):
             return other.cartesian
 
         return self.cartesian
+
+    def set_x(self, xs):
+        self._data[:, 0] = xs
+
+    def set_y(self, ys):
+        self._data[:, 1] = ys
+
+    def set_z(self, zs):
+        self._data[:, 2] = zs
+
+    def set_r(self, rs):
+        ts = self.cylindrical[:, 0]
+        xs = rs * np.cos(ts)
+        ys = rs * np.sin(ts)
+
+        self._data[:, 0] = xs
+        self._data[:, 1] = ys
+
+    def set_t(self, ts):
+        rs = self.cylindrical[:, 2]
+        xs = rs * np.cos(ts)
+        ys = rs * np.sin(ts)
+
+        self._data[:, 0] = xs
+        self._data[:, 1] = ys
+
 
     @property
     def system(self):
@@ -248,6 +345,33 @@ class Cylindrical(VertexArray):
 
         return self.cylindrical
 
+    def set_x(self, xs):
+        ys = self.cartesian[:, 1]
+
+        ts = np.arctan2(ys, xs)
+        rs = xs / np.cos(ts)  # This might cause problems!
+
+        self._data[:, 0] = ts
+        self._data[:, 2] = rs
+
+    def set_y(self, ys):
+        xs = self.cartesian[:, 0]
+
+        ts = np.arctan2(ys, xs)
+        rs = ys / np.sin(ts)
+
+        self._data[:, 2] = rs
+        self._data[:, 0] = ts
+
+    def set_z(self, zs):
+        self._data[:, 1] = zs
+
+    def set_r(self, rs):
+        self._data[:, 2] = rs
+
+    def set_t(self, ts):
+        self._data[:, 0] = ts
+
     @property
     def system(self):
         return "Cylindrical"
@@ -267,9 +391,3 @@ class Cylindrical(VertexArray):
         YS = RS * np.sin(TS)
 
         return np.dstack([XS, YS, ZS])[0]
-
-
-CoordinateSystems = {
-    'CARTESIAN': Cartesian,
-    'CYLINDRICAL': Cylindrical
-}

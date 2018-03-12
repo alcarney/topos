@@ -217,7 +217,6 @@ with their own behavior:
 
 - :ref:`Addition with Other VertexArrays`
 - :ref:`Addition with a Numpy Array`
-- :ref:`Addition with a Function`
 
 Addition with Other VertexArrays
 """"""""""""""""""""""""""""""""
@@ -281,6 +280,3 @@ However since a numpy array does not carry coordinate system information so it
 cannot be automatically converted. It is up to the user to ensure the numpy
 array is using the correct coordinate system.
 
-
-Addition with a Function
-"""""""""""""""""""""""""

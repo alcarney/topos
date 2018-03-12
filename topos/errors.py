@@ -34,8 +34,15 @@ class Error(object):
 
 
 ERRORS = {
-    # Mesh Errors
+
+    # -- Face Array Errors --
+    'FA01.1': Error(TypeError, "Faces must be represented with a numpy array", "#fa01"),
+    'FA01.2': Error(TypeError, "Face array must have shape (n, {sides})", "#fa01"),
+    'FA01.3': Error(TypeError, "Faces can only be defined using integers.", "#fa01"),
+
+    # -- Mesh Errors --
     'ME01.1': Error(TypeError, "Vertices must be represented by a Vertex Array", "#me01"),
+    'ME01.2': Error(TypeError, "Faces must be represented by a FaceArray", "#me01"),
 
     # -- Vertex Array Errors --
 
@@ -46,10 +53,15 @@ ERRORS = {
     # __add__
     'VA02.1': Error(TypeError, 'Incompatible shape {shape}, array must have shape (3,)', '#va02'),
     'VA02.2': Error(TypeError, "Function can have at most 3 parameters", "#va02"),
+    'VA02.3': Error(TypeError, 'Addition is not supported with type {type}', "#va02"),
 
     # __getitem__
     'VA03.1': Error(TypeError, 'Coordinates must be specified using an iterable', '#va03'),
     'VA03.2': Error(ValueError, 'Unknown coordinate variable {var}', "#va03"),
+
+    # _coord_setter
+    'VA04.1': Error(TypeError, "Coordinate values must be specified with a numpy array", "#va04"),
+    'VA04.2': Error(TypeError, "Coordinate array must have shape ({length},)", "#va04")
 }
 
 
