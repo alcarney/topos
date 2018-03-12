@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 
 from .errors import raiseError
 
+
 class FaceArray(ABC):
 
     def __init__(self, data):
@@ -41,7 +42,6 @@ class FaceArray(ABC):
         """Return a string representation of the array according to a given
         format string compatible with Python's :py:meth:`python:str.format` syntax.
 
-
         :param fmtstr: The format string to apply to each face
         :type fmtstr: str
         :param prefix: A string to include before the face data
@@ -52,7 +52,7 @@ class FaceArray(ABC):
         :type sep: str
 
         :raises KeyError: The format string cannot contain any named
-                          substitutions e.g. :code:`{x}`
+        substitutions e.g. :code:`{x}`
 
         :return: :code:`prefix + foreach face <fmtstr + sep> + suffix`
         :rtype: str

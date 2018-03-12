@@ -4,7 +4,7 @@ import numpy as np
 from .mesh import Mesh
 from .generators import planar_faces, planar_vertices,\
         cylindrical_faces, cylindrical_vertices
-from .vertices import Cartesian
+from .vertices import Cartesian, Cylindrical
 from .faces import Quads
 
 
@@ -37,7 +37,7 @@ class Cylinder(Mesh):
 
     def __init__(self, N_theta=8, N_z=6):
 
-        verts = cylindrical_vertices(N_theta, N_z)
-        faces = cylindrical_faces(N_theta, N_z)
+        verts = Cylindrical(cylindrical_vertices(N_theta, N_z))
+        faces = Quads(cylindrical_faces(N_theta, N_z))
 
-        super().__init__(name="Cylinder", vertices=verts, faces=faces)
+        super().__init__(name="Cylinder", verts=verts, faces=faces)
