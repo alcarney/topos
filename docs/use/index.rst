@@ -1,5 +1,7 @@
-Using Topos
-===========
+.. _user_guide:
+
+User Guide
+==========
 
 .. toctree::
     :maxdepth: 1

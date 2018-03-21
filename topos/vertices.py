@@ -57,7 +57,7 @@ class VertexArray(ABC):
             vs = self.__getattribute__(system)
             return self.fromarray(vs + other)
 
-        raiseError('VA02.3', type=type(other))
+        raiseError('VA02.2', type=type(other))
 
     @classmethod
     def fromarray(cls, array):
@@ -66,44 +66,71 @@ class VertexArray(ABC):
 
     @property
     def system(self):
+        """Return a string representing the coorindate system the array uses."""
         return type(self).__name__
 
     @property
     def data(self):
+        """Return the underlying numpy array representing the vertex array."""
         return self._data
 
     @property
     def length(self):
+        """Return the length of the vertex array."""
         return self._data.shape[0]
 
     @property
     @abstractmethod
     def cartesian(self):
+        """Return a numpy representing the vertex array
+        w.r.t :term:`cartesian coordinate` s."""
         pass
 
     @property
     @abstractmethod
     def cylindrical(self):
+        """Return a numpy array representing the vertex array
+        w.r.t :term:`cylindrical coordinate` s."""
         pass
 
     @property
     def x(self):
+        """Return a numpy array containing the :math:`x` coordinate of each vertex.
+        Can also be used to modify each coordinate, see the
+        `documentation <http://topos.readthedocs.io/en/latest/use/reference/vertexarray.html#x>`__
+        for more details."""
         return self.cartesian[:, 0]
 
     @property
     def y(self):
+        """Return a numpy array containing the :math:`y` coordinate of each vertex.
+        Can also be used to modify each coordinate, see the
+        `documentation <http://topos.readthedocs.io/en/latest/use/reference/vertexarray.html#y>`__
+        for more details."""
         return self.cartesian[:, 1]
 
     @property
     def z(self):
+        """Return a numpy array containing the :math:`z` coordinate of each vertex.
+        Can also be used to modify each coordinate, see the
+        `documentation <http://topos.readthedocs.io/en/latest/use/reference/vertexarray.html#z>`__
+        for more details."""
         return self.cartesian[:, 2]
 
     @property
     def r(self):
+        """Return a numpy array containing the :math:`r` coordinate of each vertex.
+        Can also be used to modify each coordinate, see the
+        `documentation <http://topos.readthedocs.io/en/latest/use/reference/vertexarray.html#r>`__
+        for more details."""
         return self.cylindrical[:, 2]
 
     @property
     def t(self):
+        """Return a numpy array containing the :math:`t` coordinate of each vertex.
+        Can also be used to modify each coordinate, see the
+        `documentation <http://topos.readthedocs.io/en/latest/use/reference/vertexarray.html#t>`__
+        for more details."""
         return self.cylindrical[:, 0]
 
     def __getitem__(self, key):
@@ -165,6 +192,7 @@ class VertexArray(ABC):
     def fmt(self, fmtstr, prefix="", suffix="", sep="\n"):
         """Return a string representation of the array according to a given
         format string compatible with Python's :py:meth:`python:str.format` syntax.
+
         :param fmtstr: The format string to apply to each vertex
         :type fmtstr: str
         :param prefix: A string to include before the vertex data

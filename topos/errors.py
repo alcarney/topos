@@ -52,8 +52,7 @@ ERRORS = {
 
     # __add__
     'VA02.1': Error(TypeError, 'Incompatible shape {shape}, array must have shape (3,)', '#va02'),
-    'VA02.2': Error(TypeError, "Function can have at most 3 parameters", "#va02"),
-    'VA02.3': Error(TypeError, 'Addition is not supported with type {type}', "#va02"),
+    'VA02.2': Error(TypeError, 'Addition is not supported with type {type}', "#va02"),
 
     # __getitem__
     'VA03.1': Error(TypeError, 'Coordinates must be specified using an iterable', '#va03'),

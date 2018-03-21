@@ -1,3 +1,5 @@
+.. _use_ref_vertx_array:
+
 VertexArrays
 ============
 
@@ -12,7 +14,8 @@ the only difference being which coordinate system you want to use.
 
 Currently :code:`topos` comes with the following VertexArray implementations
 
-- :code:`Cartesian`: For vertices using the :term:`cartesian coordinate` system
+- :code:`Cartesian`: For vertices using the :term:`cartesian coordinate`
+  system
 - :code:`Cylindrical`: For vertices using the :term:`cylindrical coordinate`
   system
 
@@ -53,10 +56,20 @@ Properties
 :code:`VertexArray` objects come with a number of properties which allow you to
 easily retrieve information about particular arrays:
 
-- :ref:`Cartesian - Read Only`
-- :ref:`Data - Read Only`
-- :ref:`Length - Read Only`
-- :ref:`System - Read Only`
+.. hlist::
+    :columns: 3
+
+    - :ref:`use_ref_vertx_cartesian`
+    - :ref:`use_ref_vertx_data`
+    - :ref:`use_ref_vertx_x`
+    - :ref:`use_ref_vertx_y`
+    - :ref:`use_ref_vertx_z`
+    - :ref:`use_ref_vertx_r`
+    - :ref:`use_ref_vertx_t`
+    - :ref:`use_ref_vertx_length`
+    - :ref:`use_ref_vertx_system`
+
+.. _use_ref_vertx_cartesian:
 
 Cartesian - Read Only
 ^^^^^^^^^^^^^^^^^^^^^
@@ -86,6 +99,8 @@ using Cartesian coordinates
     array([[3., 0., 2.],
            [4., 0., 1.]])
 
+.. _use_ref_vertx_data:
+
 Data - Read Only
 ^^^^^^^^^^^^^^^^
 
@@ -99,8 +114,10 @@ Return the raw data contained in the array
     array([[1., 2., 3.],
            [4., 5., 6.]])
 
-X - Read Only
-^^^^^^^^^^^^^
+.. _use_ref_vertx_x:
+
+X
+^^
 
 Return an array of just x coordinates
 
@@ -114,8 +131,47 @@ Return an array of just x coordinates
 Like the :code:`cartesian` property this will automatically convert vertex
 arrays that are not using Cartesian coordinates
 
-Y - Read Only
-^^^^^^^^^^^^^
+You can also use this property to set each x coordinate in the array to a new
+value. For example
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.x = np.array([0., 0.])
+    >>> verts.data
+    array([[0., 2., 3.],
+           [0., 5., 6.]])
+
+Instead of an array you can also set new values using a function. It's
+arguments *must* be one or more of the coordinate variables that vertex arrays
+support. The function will be called on each vertex in turn and passed that
+vertex's values for each coordinate variable asked for.
+
+For example if we wanted to set the :code:`x` coordinate of each vertex to be
+the sum of the :code:`y` and :code:`z` coordinates we could do it as follows
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.x = lambda y, z: y + z
+    >>> verts.data
+    array([[ 5.,  2.,  3.],
+           [11.,  5.,  6.]])
+
+
+.. note::
+
+    This "does the right thing" for all vertex arrays, even if they are not
+    using cartesian coordinates. The conversion is automatically performed for
+    you behind the scenes.
+
+
+.. todo::
+
+    Link to examples demonstrating this feature in a "real world" application
+
+.. _use_ref_vertx_y:
+
+Y
+^^
 
 Return an array of just y coordinates
 
@@ -129,8 +185,46 @@ Return an array of just y coordinates
 Like the :code:`cartesian` property this will automatically convert vertex
 arrays that are not using Cartesian coordinates
 
-Z - Read Only
-^^^^^^^^^^^^^
+You can use this property to set each :code:`y` coordinate in the array to a
+new value.  For example
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.y = np.array([0., 0.])
+    >>> verts.data
+    array([[1., 0., 3.],
+           [4., 0., 6.]])
+
+Instead of an array you can also set new values using a function. It's
+arguments *must* be one or more of the coordinate variables that
+are supported by :code:`VertexArray`. The function will then be called on each
+vertex in turn and passed that vertex's values for each coordinate variable
+asked for.
+
+For example if we wanted to set the :code:`y` coordinate to be 4 times the
+:code:`x` coordinate we could do it as follows
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.y = lambda x: 4*x
+    >>> verts.data
+    array([[ 1.,  4.,  3.],
+           [ 4., 16.,  6.]])
+
+.. note::
+
+    This "does the right thing" for all vertex arrays, even if they are not
+    natively using cartesian coordinates. The conversion will be automatically
+    performed for you behind the scenes.
+
+.. todo::
+
+    Link to examples demonstrating this feature in a "real world" application.
+
+.. _use_ref_vertx_z:
+
+Z
+^^
 
 Return an array of just z coordinates
 
@@ -144,8 +238,45 @@ Return an array of just z coordinates
 Like the :code:`cartesian` property this will automatically convert vertex
 arrays that are not using Cartesian coordinates
 
-R - Read Only
-^^^^^^^^^^^^^
+You can use this property to set each :code:`z` coordinate in the array to a
+new value. For example
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.z = np.array([0., 0.])
+    >>> verts.data
+    array([[1., 2., 0.],
+           [4., 5., 0.]])
+
+Instead of an array you can also set new values using a function. It's
+arguments *must* be one or more of the coordinate variables that are
+supported by :code:`VertexArray`. The function will be called on each vertex in
+turn and passed that vertex's value for each coordinate variable asked for.
+
+For example if we wanted to set the :code:`z` coordinate to be the :code:`x`
+coordinate less the the :code:`y` coordinate we could do it as follows
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.z = lambda x, y: x - y
+    >>> verts.data
+    array([[ 1.,  2., -1.],
+           [ 4.,  5., -1.]])
+
+.. note::
+
+    This "does the right thing" for all vertex arrays even if they are not
+    natively using cartesian coordinates. The conversion will be performed for
+    you automatically behind the scenes.
+
+.. todo::
+
+    Links to examples demonstrating this feature in a "real world" application
+
+.. _use_ref_vertx_r:
+
+R
+^^
 
 Return an array of just r coordinates
 
@@ -159,8 +290,46 @@ Return an array of just r coordinates
 Like the :code:`cylindrical` property this will automatically convert vertex
 arrays that are not using Cylindrical coordinates
 
-T - Read Only
-^^^^^^^^^^^^^
+You can use this property to set each :code:`r` coordinate array to a new
+value. For example
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.r = np.array([0., 0.])
+    >>> verts.data
+    array([[0., 4., 0.],
+           [0., 2., 0.]])
+
+Instead of an array you can also set new values using a function. It's
+arguments *must* be one or more of the coordinate variables that are supported
+for each :code:`VertexArray`. The function will then be called on each vertex
+in turn and passed that vertex's values for each coordinate variable asked for.
+
+For example if we wanted to set the :code:`r` coordinate to :math:`z^2 - z` we
+could do it as follows
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.r = lambda z: z*z - z
+    >>> verts.data
+    array([[ 0.,  4., 12.],
+           [ 0.,  2.,  2.]])
+
+.. note::
+
+    This "does the right thing" for all vertex arrays even if they are not
+    natively using cylindrical coordinates. The conversion will be
+    automatically performed for you behind the scenes.
+
+
+.. todo::
+
+    Link to examples demonstrating this feature in a "real world" applicaton.
+
+.. _use_ref_vertx_t:
+
+T
+^^
 
 Return an array of just t coordinates
 
@@ -174,6 +343,8 @@ Return an array of just t coordinates
 Like the :code:`cylindrical` property this will automatically convert vertex
 arrays that are not using Cylindrical coordinates
 
+.. _use_ref_vertx_length:
+
 Length - Read Only
 ^^^^^^^^^^^^^^^^^^
 
@@ -185,6 +356,8 @@ Return the number of vertices in an array
     >>> verts = Cartesian(vs)
     >>> verts.length
     2
+
+.. _use_ref_vertx_system:
 
 System - Read Only
 ^^^^^^^^^^^^^^^^^^
@@ -204,6 +377,8 @@ Operations
 
 :code:`VertexArrays` support a number of arithmetic operations
 
+.. _use_ref_vertx_addition:
+
 Addition
 ^^^^^^^^
 
@@ -215,8 +390,10 @@ Addition
 :code:`VertexArrays` support addition with a number of different objects, each
 with their own behavior:
 
-- :ref:`Addition with Other VertexArrays`
-- :ref:`Addition with a Numpy Array`
+- :ref:`use_ref_vertx_addition_arr`
+- :ref:`use_ref_vertx_addition_np`
+
+.. _use_ref_vertx_addition_arr:
 
 Addition with Other VertexArrays
 """"""""""""""""""""""""""""""""
@@ -259,6 +436,8 @@ second will automatically be converted
     >>> AS.system
     'Cartesian'
 
+.. _use_ref_vertx_addition_np:
+
 Addition with a Numpy Array
 """""""""""""""""""""""""""
 
@@ -279,4 +458,3 @@ translating an object in space.
 However since a numpy array does not carry coordinate system information so it
 cannot be automatically converted. It is up to the user to ensure the numpy
 array is using the correct coordinate system.
-

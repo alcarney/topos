@@ -1,3 +1,5 @@
+.. _use_ref_prim_plane:
+
 Plane
 =====
 

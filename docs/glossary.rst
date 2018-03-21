@@ -18,8 +18,14 @@ Glossary
         `Numpy <http://www.numpy.org/>`_ is a Python package used heavily in
         the Academic and Data Science communities for manipulating array-like
         data structures such as matrices, images and astronomical data. Topos
-        makes use of these arrays extensively for manipulating and managing
+        makes use of these arrays internally for manipulating and managing
         mesh data.
+
+    vertex
+        Forms part of a mesh, a collection of vertices define a face, a vertex
+        for each corner. Mathematicians would typically refer to one as a point
+        unless stated otherwise the terms points and vertices can be used
+        interchangably.
 
     w.r.t
         with respect to
