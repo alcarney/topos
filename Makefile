@@ -9,5 +9,16 @@ test_travis: test
 lint:
 	flake8 topos/
 
+livedocs:
+	cd docs && make live
+
+docs:
+	cd docs && make html
+
+linkcheck:
+	cd docs && make linkcheck
+
 doctest:
 	cd docs && make doctest &&  cd ..
+
+.PHONY: docs

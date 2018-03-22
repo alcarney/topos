@@ -12,9 +12,12 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../'))
+
+from directives.show_model import ShowModelDirective, showmodel_node
 
 
 # -- Project information -----------------------------------------------------
@@ -23,16 +26,14 @@ project = 'Topos'
 copyright = '2018, Alex Carney'
 author = 'Alex Carney'
 
-# The short X.Y version
-version = ''
 
 # The full version, including alpha/beta/rc tags
-exec(open('../../topos/version.py').read())
+exec(open('../topos/version.py').read())
 release = __version__
+version = __version__
 
 
 # -- General configuration ---------------------------------------------------
-
 # If your documentation needs a minimal Sphinx version, state it here.
 #
 # needs_sphinx = '1.0'
@@ -42,10 +43,11 @@ release = __version__
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.doctest',
     'sphinx.ext.mathjax',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
 
@@ -82,7 +84,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'basic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -164,8 +166,23 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+autoclass_content = "both"
+autodoc_member_order = "groupwise"
+autodoc_default_flags = [
+    "members",
+    "inherited-members",
+    "private-members",
+]
 
-# -- Options for todo extension ----------------------------------------------
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'numpy': ('https://docs.scipy.org/doc/numpy/', None)
+}
 
-# If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# -- Custom configuration ----------------------------------------------------
+def setup(app):
+    """Here is where we register all our extras."""
+    app.add_node(showmodel_node)
+    app.add_directive('showmodel', ShowModelDirective)

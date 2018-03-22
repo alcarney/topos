@@ -1,0 +1,22 @@
+[[source]]
+
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+name = 'pypi'
+
+
+[packages]
+
+numpy = "*"
+magus = "*"
+
+
+[dev-packages]
+
+hypothesis = "*"
+jupyter = "*"
+pytest = "*"
+sphinx = "*"
+sphinx-autobuild = "*"
+"flake8" = "*"
+matplotlib = "*"
