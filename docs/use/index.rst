@@ -7,3 +7,4 @@ User Guide
     :maxdepth: 1
 
     reference/index
+    tutorials/index
