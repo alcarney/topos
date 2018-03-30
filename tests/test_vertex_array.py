@@ -6,7 +6,7 @@ import numpy.random as npr
 import numpy.testing as npt
 
 
-from topos.vertices import VertexArray, Cartesian, Cylindrical
+from topos.core.vertices import VertexArray, Cartesian, Cylindrical
 
 
 from .strategies import cartesian, cylindrical, size, cart
@@ -53,13 +53,13 @@ class DummyArray(VertexArray):
 
 class TestInit(object):
 
-    @patch('topos.vertices.raiseError')
+    @patch('topos.core.vertices.raiseError')
     def test_init_bad_type(self, Err):
 
         DummyArray("string")
         Err.assert_called_once_with("VA01.1")
 
-    @patch('topos.vertices.raiseError')
+    @patch('topos.core.vertices.raiseError')
     def test_init_bad_shape(self, Err):
 
         DummyArray(np.array([[[2, 3]]]))

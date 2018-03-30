@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def readme():
@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 
-exec(open('topos/version.py', 'r').read())
+exec(open('topos/core/version.py', 'r').read())
 
 
 setup(name='topos',
@@ -24,7 +24,7 @@ setup(name='topos',
       author='Alex Carney',
       author_email="alcarneyme@gmail.com",
       license='MIT',
-      packages=['topos'],
+      packages=["topos.core"],
       install_requires=[
           'numpy',
           'magus'

@@ -31,7 +31,7 @@ Vertex Array Errors (VA)
 .. testsetup:: va-errors
 
     import numpy as np
-    from topos.vertices import Cartesian, Cylindrical
+    from topos.core.vertices import Cartesian, Cylindrical
 
 These errors are related to any of the Vertex Array objects such as
 :code:`Cartesian` and :code:`Cylindrical`

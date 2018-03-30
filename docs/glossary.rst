@@ -21,11 +21,23 @@ Glossary
         makes use of these arrays internally for manipulating and managing
         mesh data.
 
+    pip
+        `Pip <https://docs.python.org/3/installing/index.html>`_ is a Python
+        tool that is used to install packages and their dependencies.
+
     vertex
         Forms part of a mesh, a collection of vertices define a face, a vertex
         for each corner. Mathematicians would typically refer to one as a point
         unless stated otherwise the terms points and vertices can be used
         interchangably.
+
+    virtualenv
+        Short for "virtual environment" a `virtualenv <https://docs.python.org/3/tutorial/venv.html>`_
+        essentially is an installation that is local to your project. Once
+        activated all python commands will use the interpreter and packages
+        that have been installed into it. They allow you to have many versions
+        of libraries installed on your machine without them interfering with
+        each other.
 
     w.r.t
         with respect to

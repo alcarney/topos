@@ -6,8 +6,8 @@ from .strategies import cartesian, faces
 
 
 import numpy as np
-from topos.mesh import Mesh
-from topos.vertices import Cartesian
+from topos.core.mesh import Mesh
+from topos.core.vertices import Cartesian
 
 
 class TestInit(object):
@@ -20,13 +20,13 @@ class TestInit(object):
         assert m._faces is None
         assert m._name is None
 
-    @patch('topos.mesh.raiseError')
+    @patch('topos.core.mesh.raiseError')
     def test_bad_verts(self, Err):
 
         Mesh(verts=2)
         Err.assert_called_once_with('ME01.1')
 
-    @patch('topos.mesh.raiseError')
+    @patch('topos.core.mesh.raiseError')
     def test_bad_faces(self, Err):
 
         Mesh(faces=2)

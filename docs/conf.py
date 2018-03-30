@@ -28,7 +28,7 @@ author = 'Alex Carney'
 
 
 # The full version, including alpha/beta/rc tags
-exec(open('../topos/version.py').read())
+exec(open('../topos/core/version.py').read())
 release = __version__
 version = __version__
 

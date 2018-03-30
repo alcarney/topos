@@ -30,7 +30,7 @@ with the right shape to one of these objects.
 .. doctest:: ref-vertx-array-init
 
     >>> import numpy as np
-    >>> from topos.vertices import Cartesian
+    >>> from topos.core.vertices import Cartesian
     >>> vs = np.array([[1., 2., .3], [4., 5., 6.]])
     >>> Cartesian(vs)
     Cartesian Array: 2 vertices
@@ -41,7 +41,7 @@ Similarly for the :code:`Cylindrical` object
 
 .. doctest:: ref-vertx-array-init
 
-    >>> from topos.vertices import Cylindrical
+    >>> from topos.core.vertices import Cylindrical
     >>> Cylindrical(vs)
     Cylindrical Array: 2 vertices
 
@@ -77,7 +77,7 @@ Cartesian - Read Only
 .. testsetup:: ref-vertx-array-props
 
     import numpy as np
-    from topos.vertices import Cartesian, Cylindrical
+    from topos.core.vertices import Cartesian, Cylindrical
 
 Return an array containing the vertices in Cartesian coordinates.
 
@@ -343,6 +343,41 @@ Return an array of just t coordinates
 Like the :code:`cylindrical` property this will automatically convert vertex
 arrays that are not using Cylindrical coordinates
 
+You can use this property to set each :code:`t` coordinate in the array to a
+new value. For example
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.t = np.array([1., 1.])
+    >>> verts.data
+    array([[1., 4., 2.],
+           [1., 2., 1.]])
+
+Instead of an array you can also set new values using a function. It's
+arguments *must* be one or more of the coordinate variables that are supported
+by :code:`VertexArray`. The function will then be called on each vertex in turn
+and passed that vertex's values for each coordinate variable asked for.
+
+For example if we wanted to set the :code:`t` coordinate to be itself plus the
+value of the radius then we could do it as follows
+
+.. doctest:: ref-vertx-array-props
+
+    >>> verts.t = lambda t, r: t + r
+    >>> verts.data
+    array([[3., 4., 2.],
+           [2., 2., 1.]])
+
+.. note::
+
+    This "does the right thing" for all vertex arrays, even if they are not
+    natively using cartesian coordinates. The conversion will be automatically
+    performed for you behind the scenes.
+
+.. todo::
+
+    Link to examples demonstrating this feature in a "real world" application.
+
 .. _use_ref_vertx_length:
 
 Length - Read Only
@@ -385,7 +420,7 @@ Addition
 .. testsetup:: ref-vertx-array-addition
 
     import numpy as np
-    from topos.vertices import Cartesian, Cylindrical
+    from topos.core.vertices import Cartesian, Cylindrical
 
 :code:`VertexArrays` support addition with a number of different objects, each
 with their own behavior:

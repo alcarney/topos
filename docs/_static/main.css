@@ -2,6 +2,7 @@ body {
     font-family: 'Raleway', sans-serif;
     background: white; /*#666666;*/
     color: black;
+    margin: 0;
     display: grid;
     grid-template-columns: auto;
     grid-template-areas:
@@ -40,7 +41,16 @@ a:hover {
 .header {
     grid-area: header;
     background: #222222;
+}
+
+.header a {
     color: white;
+}
+
+.header sub {
+    color: #e18a07;
+    font-size: 10pt;
+    margin-left: 5px;
 }
 
 .header h2 {

@@ -1,7 +1,3 @@
-from enum import Enum
-import numpy as np
-
-
 from .errors import raiseError
 from .faces import FaceArray
 from .vertices import VertexArray
@@ -32,7 +28,6 @@ class Mesh(object):
             s += "Faces: {}\n".format(self.faces.length)
 
         return s
-
 
     @property
     def vertices(self):
