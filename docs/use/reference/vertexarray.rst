@@ -30,7 +30,7 @@ with the right shape to one of these objects.
 .. doctest:: ref-vertx-array-init
 
     >>> import numpy as np
-    >>> from topos.vertices import Cartesian
+    >>> from topos.core.vertices import Cartesian
     >>> vs = np.array([[1., 2., .3], [4., 5., 6.]])
     >>> Cartesian(vs)
     Cartesian Array: 2 vertices
@@ -41,7 +41,7 @@ Similarly for the :code:`Cylindrical` object
 
 .. doctest:: ref-vertx-array-init
 
-    >>> from topos.vertices import Cylindrical
+    >>> from topos.core.vertices import Cylindrical
     >>> Cylindrical(vs)
     Cylindrical Array: 2 vertices
 
@@ -77,7 +77,7 @@ Cartesian - Read Only
 .. testsetup:: ref-vertx-array-props
 
     import numpy as np
-    from topos.vertices import Cartesian, Cylindrical
+    from topos.core.vertices import Cartesian, Cylindrical
 
 Return an array containing the vertices in Cartesian coordinates.
 
@@ -420,7 +420,7 @@ Addition
 .. testsetup:: ref-vertx-array-addition
 
     import numpy as np
-    from topos.vertices import Cartesian, Cylindrical
+    from topos.core.vertices import Cartesian, Cylindrical
 
 :code:`VertexArrays` support addition with a number of different objects, each
 with their own behavior:

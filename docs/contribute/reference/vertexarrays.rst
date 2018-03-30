@@ -1,16 +1,16 @@
 VertexArray
 ===========
 
-.. autoclass:: topos.vertices.VertexArray
+.. autoclass:: topos.core.vertices.VertexArray
 
 
 Cartesian
 =========
 
-.. autoclass:: topos.vertices.Cartesian
+.. autoclass:: topos.core.vertices.Cartesian
 
 
 Cylindrical
 ===========
 
-.. autoclass:: topos.vertices.Cylindrical
+.. autoclass:: topos.core.vertices.Cylindrical
