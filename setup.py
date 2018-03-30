@@ -24,7 +24,7 @@ setup(name='topos',
       author='Alex Carney',
       author_email="alcarneyme@gmail.com",
       license='MIT',
-      packages=find_packages(exclude="tests"),
+      packages=["topos.core"],
       install_requires=[
           'numpy',
           'magus'
