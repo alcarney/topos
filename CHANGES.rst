@@ -1,8 +1,11 @@
-0.06 Unreleased
----------------
+0.0.6 30/03/2018
+----------------
 
-0.05 21/03/2018
----------------
+- :code:`topos` is now a namespace package this means everything that was under
+  the `topos.*` is now under `topos.core.*`
+
+0.0.5 21/03/2018
+----------------
 
 **Users**
 
