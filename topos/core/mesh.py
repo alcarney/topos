@@ -19,15 +19,15 @@ class Mesh(object):
         self._name = name
 
     def __repr__(self):
-        s = "{}\n".format(self.name)
+        string = "{}\n".format(self.name)
 
         if self.vertices is not None:
-            s += "Vertices: {}\n".format(self.vertices.length)
+            string += "Vertices: {}\n".format(self.vertices.length)
 
         if self.faces is not None:
-            s += "Faces: {}\n".format(self.faces.length)
+            string += "Faces: {}\n".format(self.faces.length)
 
-        return s
+        return string
 
     @property
     def vertices(self):
