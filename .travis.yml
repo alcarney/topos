@@ -1,23 +1,23 @@
 language: python
-python:
-    - "3.5"
-    - "3.6"
-
-env:
-    - "TASK=lint"
-    - "TASK=linkcheck"
-    - "TASK=doctest"
-    - "TASK=test_travis"
-
-before_install:
-    - "pip install pipenv coveralls"
+matrix:
+    include:
+        - python: "3.5"
+          env: TASK=py35
+        - python: "3.6"
+          env: TASK=py36
+        - python: "3.6"
+          env: TASK=docs
+        - python: "3.6"
+          env: TASK=lint
 
 install:
-    - "pipenv install --dev"
-    - "pipenv install -e ."
+    - "pip install tox coveralls"
 
 script:
-    - "make $TASK"
+    - "tox -e $TASK"
+
+after_success:
+    - if [ "$TASK" == "py36" ]; then coveralls; fi
 
 deploy:
     provider: pypi
@@ -25,5 +25,5 @@ deploy:
     password:
        secure: "DyebIxFW9TqdVVedrhKlfUvelZjk6aL4ng5800BVOLPOdrOVaCL8iX/Tt6Iq2a5JEsoVoAV8pV6HKaSvjmxQvbNGd3Dd1TA3OIrgAkU/ivZFfYPgTK5XmuBOqxwJ3CEr72AIxCJSkvoO2z7znJwA3IGYZdreTCmh5/jiqWPmxbDUcyAysZ77L7tHQdCuEe49A9dFEUgLGUCg9KxRCpabHhMsvcIF/GDVHPho/nxG2WbOa5t6heVFxBNqtiIKaIW0J0Hsq/g+lLOR9kOMmrwi/pOsZZeX9YvcDkGo5jHsyVJsui1JBlpCVc3eFekt0dR8ivltLCKQkC9XcYlkqRaP/2gqVLsePRZG7JRIwZ73+R2pKot46VmoZTBMWP5YfXhqaYuD6vmQMMqHeUuvNFTBNzmLPaXscU/6E6pYZpOIsK6qP9JG++UlbHFgsOuqDrpo78zJC138+khZT8oaoc2rU8gBvCvNpEpVoQHzfz/BX8me6fiovCgC/3gWPcj7+VVvLq9JrCQwa5J0foN0dJ0fFnwA0fQOi7qXT+79iWuF3lm4hZnCt2v8Kbtlnr5gjaOD2FxkeVz9BDmpHBuu0FQsaXc6U6Vr1KXwazIYGK06sdyabs4j0YRZAYY1sehx+Z8+o/iFcNguhNvorqHBzv3cdssBGCrNQACdzKzlN91hH8A="
     on:
-        condition: $TASK = test_travis
+        condition: $TASK = py36
         python: 3.6
