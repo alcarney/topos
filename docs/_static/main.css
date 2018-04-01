@@ -52,16 +52,30 @@ body {
 
 
 a {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-    font-style: italic;
-}
-
-a {
     color: #e18a07;
+    text-decoration: none;
+    position: relative;
+    transition: 0.3s ease-in-out 0s;
+
+}
+
+a:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    left:0;
+    background-color: #e18a07;
+    transition: all 0.3s ease-in-out 0s
+}
+
+a:hover:before {
+    width: 100%;
+}
+
+#site-name:before {
+    bottom: 20px;
 }
 
 .main {
