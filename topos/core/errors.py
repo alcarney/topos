@@ -40,6 +40,11 @@ ERRORS = {
     'FA01.2': Error(TypeError, "Face array must have shape (n, {sides})", "#fa01"),
     'FA01.3': Error(TypeError, "Faces can only be defined using integers.", "#fa01"),
 
+    # -- Geometry Errors --
+
+    # __init__
+    'GE01.1': Error(TypeError, "Name must be represented by a string", "#ge01"),
+
     # -- Mesh Errors --
     'ME01.1': Error(TypeError, "Vertices must be represented by a Vertex Array", "#me01"),
     'ME01.2': Error(TypeError, "Faces must be represented by a FaceArray", "#me01"),
@@ -60,7 +65,14 @@ ERRORS = {
 
     # _coord_setter
     'VA04.1': Error(TypeError, "Coordinate values must be specified with a numpy array", "#va04"),
-    'VA04.2': Error(TypeError, "Coordinate array must have shape ({length},)", "#va04")
+    'VA04.2': Error(TypeError, "Coordinate array must have shape ({length},)", "#va04"),
+
+    # -- World View Errors --
+
+    # __init__
+    'WV01.1': Error(TypeError, "Mesh property must be represented by a Mesh object", "#wv01"),
+    'WV02.1': Error(TypeError, "Position must be represented by a numpy array", "#wv02"),
+    'WV02.2': Error(TypeError, "Position array must have shape (3,)", "#wv02")
 }
 
 
