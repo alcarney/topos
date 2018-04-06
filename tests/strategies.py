@@ -10,6 +10,9 @@ from hypothesis.strategies import integers, floats, composite, tuples, lists
 # A "real" number in the range of +- 1 million
 real = floats(min_value=-1e6, max_value=1e6)
 
+# A positive real
+pve_real = floats(min_value=1, max_value=1e6)
+
 # A "radial" number - the R in polar coordinates
 R = floats(min_value=0.1, max_value=1e6)
 

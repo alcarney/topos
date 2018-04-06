@@ -248,6 +248,7 @@ dl.glossary dt {
 /*-- Autodoc --*/
 dl.class,
 dl.module,
+dl.function,
 dl.attribute {
     font-size: 16px;
 }
@@ -257,25 +258,37 @@ dl.class {
     margin-bottom: 75px;
 }
 
+dl.function dt,
 dl.class dt {
     margin: 10px 0;
     margin-left: 10px;
+    border-bottom: solid 1px black;
 }
 
+dl.function em,
 dl.class em {
     font-style: normal;
+    color: #e18a07;
 }
 
+dl.function p,
 dl.class p {
     margin: 20px 0;
 }
 
 dl.method > dt:before {
     content:"method ";
+    color: #e18a07;
 }
 
 dl.attribute > dt:before {
     content:"attribute ";
+    color: #e18a07;
+}
+
+dl.function > dt:before {
+    content: "function ";
+    color: #e18a07;
 }
 
 dl > dt > a {

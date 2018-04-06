@@ -37,6 +37,7 @@ Low Level
 .. hlist::
 
     - :ref:`use_ref_vertx_array`
+    - :ref:`use_ref_generators`
 
 .. toctree::
     :hidden:
@@ -45,3 +46,4 @@ Low Level
     cylinder
     plane
     vertexarray
+    generators

@@ -5,3 +5,5 @@ Contributor's Reference
     :maxdepth: 1
 
     vertexarrays
+    geometry
+    generators
