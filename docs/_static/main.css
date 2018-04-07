@@ -298,3 +298,9 @@ dl > dt > a {
 tr.field {
     text-align: left;
 }
+
+/* -- Misc Markup --*/
+.versionadded,
+.versionmodified {
+    text-decoration: underline;
+}
