@@ -1,6 +1,7 @@
 """This basically does what the sphinx-apidoc command does
 but we have more control over the output
 """
+import sys
 from datetime import datetime
 from string import Template
 from os import getcwd, walk, path, mkdir
@@ -123,7 +124,12 @@ def process_dir(config, dirname, subdirs, files):
 def main():
 
     config = {}
-    config['root'] = getcwd()
+
+    if len(sys.argv) > 1:
+        config['root'] = sys.argv[1]
+    else:
+        config['root'] = getcwd()
+
     config['src_dir'] = path.join(config['root'], "topos")
     config['doc_dir'] = path.join(config['root'], "docs")
     config['api_dir'] = path.join(config['doc_dir'], "contribute", "reference")
