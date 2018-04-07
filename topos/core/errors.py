@@ -1,4 +1,4 @@
-fmt_cases = {
+FMT_STRING = {
     # Args and kwargs
     (True, True): lambda s, a, kw: s.format(*a, **kw),
 
@@ -25,7 +25,7 @@ class Error(object):
     def raiseError(self, err_code, *args, **kwargs):
 
         key = (args != (), kwargs != {})
-        msg = err_code + ' ' + fmt_cases[key](self.msg, args, kwargs)
+        msg = err_code + ' ' + FMT_STRING[key](self.msg, args, kwargs)
 
         if self.url is not None:
             msg += "\nMore info: " + self.docs_url + self.url
@@ -39,6 +39,11 @@ ERRORS = {
     'FA01.1': Error(TypeError, "Faces must be represented with a numpy array", "#fa01"),
     'FA01.2': Error(TypeError, "Face array must have shape (n, {sides})", "#fa01"),
     'FA01.3': Error(TypeError, "Faces can only be defined using integers.", "#fa01"),
+
+    # -- Generator Errors --
+
+    # Cylindrical
+    'GEN:Cyln01.1': Error(T),
 
     # -- Geometry Errors --
 

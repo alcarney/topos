@@ -21,6 +21,8 @@ Currently the following geometries are supported:
 from math import pi
 import numpy as np
 
+from topos.core.errors import raiseError
+
 
 def planar_vertices(N, xmin=0., xmax=1., ymin=0., ymax=1.):
     """Generate a grid of vertices in the :math:`xy`-plane.
@@ -58,7 +60,8 @@ def planar_vertices(N, xmin=0., xmax=1., ymin=0., ymax=1.):
     return np.dstack([XS, YS, zeros])[0]
 
 
-def cylindrical_vertices(N_theta, N_z, r=1.):
+def cylindrical_vertices(N_theta, N_z, r=1., zmin=0., zmax=1., theta_min=0.,
+                         theta_max=2*pi):
     """Generate a hollow tube of vertices using cylindrical coordinates.
 
     So that we can reuse the face numbering method used in the planar geometry
@@ -71,14 +74,29 @@ def cylindrical_vertices(N_theta, N_z, r=1.):
     space they would look like a plane occupying the domain :math:`[0, 2\\pi]
     \\times [0, 1]` with the :math:`z` coordinate equal to the given radius.
 
+    .. versionchanged:: 0.0.7
+
+        You can alter the tube that this function generates. The :math:`z`
+        dimensions can be changed wih the :code:`zmin, zmax` parameters.
+        The :math:`\\theta` dimensions can be changed with the
+        :code:`theta_min, theta_max` parameters.
+
     :param r: The radius of the tube. Default :code:`1.0`
+    :param zmin: The minimum :math:`z`-value. Default :code:`0.0`
+    :param zmax: The maximum :math:`z`-value. Default :code:`1.0`
+    :param theta_min: The minimum :math:`\\theta`-value. Default :code:`0.0`
+    :param theta_max: The maximum :math:`\\theta`-value. Default :code:`2*pi`
     :param N_z: The number of vertices to use in the :math:`z` direction
     :param N_theta: The number of vertices to use in the :math:`\\theta`
                     direction.
 
-    :type N_theta: int
-    :type N_z: int
     :type r: float
+    :type N_z: int
+    :type zmin: float
+    :type zmax: float
+    :type N_theta: int
+    :type theta_min: float
+    :type theta_max: float
 
     :rtype: numpy.ndarray
     :returns: The vertices representing the hollow tube using our representation
@@ -86,8 +104,10 @@ def cylindrical_vertices(N_theta, N_z, r=1.):
               shape :math:`(N_{\\theta}N_z, 3)`
     """
 
-    ts = np.linspace(0, 2*pi, N_theta)
-    zs = np.linspace(0, 1, N_z)
+    # Only include the endpoint if we aren't doing a full loop
+    endpoint = theta_max < 2*pi
+    ts = np.linspace(theta_min, theta_max, N_theta, endpoint=endpoint)
+    zs = np.linspace(zmin, zmax, N_z)
 
     TS, ZS = np.meshgrid(ts, zs)
     TS.shape = (N_theta * N_z,)

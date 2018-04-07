@@ -16,11 +16,11 @@ pve_real = floats(min_value=1, max_value=1e6)
 # A "radial" number - the R in polar coordinates
 R = floats(min_value=0.1, max_value=1e6)
 
-# An angle, the T in polar coordinates
-T = floats(min_value=0, max_value=(2*pi - 0.0001))
+# An angle, the theta in polar coordinates
+theta = floats(min_value=0, max_value=(2 * pi - 0.0001))
 
-# A cylindrical coordinate - for mesh gen reasons we represent them as (T, Z, R)
-cylin = tuples(T, real, R)
+# A cylindrical coordinate - for mesh gen reasons we represent them as (theta, Z, R)
+cylin = tuples(theta, real, R)
 cylindrical = lists(cylin, min_size=4, max_size=512)
 
 cart = tuples(real, real, real)
