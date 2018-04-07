@@ -1,5 +1,5 @@
 import numpy as np
-from .mesh import Mesh
+from .geometry import Mesh
 
 
 class Translate(object):

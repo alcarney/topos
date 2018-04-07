@@ -101,7 +101,7 @@ def cylindrical_faces(N_theta, N_z, close_loop=True):
     """Generate the face definitions for an :math:`N_{\\theta} \\times N_z`
     hollow tube of vertices.
 
-    This case is very similar to the planar case thanks to our choice of
+    This case is very similar to the planar case, thanks to our choice of
     the order of cylindrical coordinate variables :math:`(\\theta, z, r)`
     However this function also gives the choice of connecting the left
     and right "edges" of the tube so that we get a complete loop

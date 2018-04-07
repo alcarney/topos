@@ -5,7 +5,7 @@ The most common view is perhaps the world view which allows you to position
 an object in space without touching the geometry itself.
 """
 import numpy as np
-from .mesh import Geometry
+from .geometry import Geometry
 from .vertices import Cartesian
 from .errors import raiseError
 

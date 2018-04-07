@@ -1,7 +1,7 @@
 import numpy as np
 
 
-from .mesh import Mesh
+from .geometry import Mesh
 from .generators import planar_faces, planar_vertices,\
         cylindrical_faces, cylindrical_vertices
 from .vertices import Cartesian, Cylindrical

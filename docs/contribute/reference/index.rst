@@ -1,9 +1,7 @@
-Contributor's Reference
-=======================
+Reference
+=========
 
 .. toctree::
     :maxdepth: 1
 
-    vertexarrays
-    geometry
-    generators
+    topos/index
