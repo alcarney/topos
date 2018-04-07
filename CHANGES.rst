@@ -1,3 +1,34 @@
+0.0.7 Unreleased
+----------------
+
+**Users**
+
+- **NEW:CODE**: Geometries! There is now an abstract notion of geometry which
+  should mean it will be easier to write things that "just work". With this
+  release :code:`topos` comes with the following geometries:
+
+  + :code:`Mesh`: Just like the previous mesh, the :code:`Mesh` object is now
+    the simplest implementation of a :code:`Geometry` and is a simple container
+    for vertices and faces.
+
+- **NEW:CODE**: Views! Related to geometries, views allow you to have new
+  perspectives on your models and most should work with anything that work with
+  a geometry. With this release :code:`topos` comes with the following views:
+
+  + :code:`WorldView`: This allows you to easily place an object in "WorldSpace"
+    setting its location and rotation without changing the underlying geometry.
+
+- **IMPROVE:CODE**: The implementation of :code:`planar_faces` has been improved
+  making it much quicker than the old one for large values of :code:`N`
+
+- **IMPROVE:DOCS**: The docs have had a major redesign hoping to be much more
+  readable and easier to navigate.
+
+**Contributors**
+
+- **NEW:DOCS**: There is now a :code:`scripts/apidoc.py` script that will
+  automatically generate the reference section - much like :code:`sphinx-apidoc`
+
 0.0.6 30/03/2018
 ----------------
 
