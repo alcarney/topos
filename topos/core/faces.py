@@ -2,30 +2,33 @@ import numpy as np
 from abc import ABC, abstractmethod
 
 
-from .errors import raiseError
+from .errors import ToposError
+
+
+class FaceDataError(ToposError):
+    """A face array data error."""
 
 
 class FaceArray(ABC):
 
+    @FaceDataError.annotate()
     def __init__(self, data):
 
         # Data must be a numpy array
-        if isinstance(data, (np.ndarray)):
+        if not isinstance(data, (np.ndarray)):
+            raise TypeError("Faces must be represented with a numpy array")
+        shape = data.shape
 
-            shape = data.shape
+        # With shape (n, sides)
+        if len(shape) != 2 or shape[1] != self.num_sides:
+            message = "Face array must have shape (n, {})"
+            raise TypeError(message.format(self.num_sides))
 
-            # With shape (n, sides)
-            if len(shape) != 2 or shape[1] != self.num_sides:
-                raiseError("FA01.2", sides=self.num_sides)
+        # It must have an integer type
+        if not issubclass(data.dtype.type, np.integer):
+            raise TypeError("Faces can only be defined using integers.")
 
-            # It must have an integer type
-            if not issubclass(data.dtype.type, np.integer):
-                raiseError("FA01.3")
-
-            self._data = data
-
-        else:
-            raiseError("FA01.1")
+        self._data = data
 
     def __repr__(self):
         s = self.name + " Array: "

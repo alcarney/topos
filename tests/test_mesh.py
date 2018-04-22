@@ -1,9 +1,7 @@
 from pytest import raises
 from hypothesis import given
 from hypothesis.strategies import text
-from unittest.mock import patch
 from .strategies import cartesian, faces
-
 
 import numpy as np
 from topos.core.geometry import Mesh
@@ -20,17 +18,15 @@ class TestInit(object):
         assert m._faces is None
         assert m._name is None
 
-    @patch('topos.core.geometry.raiseError')
-    def test_bad_verts(self, Err):
+    def test_bad_verts(self):
 
-        Mesh(verts=2)
-        Err.assert_called_once_with('ME01.1')
+        with raises(TypeError):
+            Mesh(verts=2)
 
-    @patch('topos.core.geometry.raiseError')
-    def test_bad_faces(self, Err):
+    def test_bad_faces(self):
 
-        Mesh(faces=2)
-        Err.assert_called_once_with('ME01.2')
+        with raises(TypeError):
+            Mesh(faces=2)
 
 
 class TestProperties(object):

@@ -5,9 +5,18 @@ The most common view is perhaps the world view which allows you to position
 an object in space without touching the geometry itself.
 """
 import numpy as np
+
 from .geometry import Geometry
 from .vertices import Cartesian
-from .errors import raiseError
+from .errors import ToposError
+
+
+class WorldViewDataError(ToposError):
+    """A world view data error."""
+
+
+class WorldViewPosistionError(ToposError):
+    """A world view position error."""
 
 
 class WorldView(Geometry):
@@ -44,16 +53,14 @@ class WorldView(Geometry):
     @position.setter
     def position(self, value):
 
-        if isinstance(value, (np.ndarray,)):
-            shape = value.shape
+        if not isinstance(value, (np.ndarray,)):
+            raise TypeError("Position must be represented by a numpy array.")
+        shape = value.shape
 
-            if len(shape) != 1 and shape[0] != 3:
-                raiseError('WV02.2')
+        if len(shape) != 1 and shape[0] != 3:
+            raise TypeError('Position array must have shape (3,)')
 
-            self._position = value
-            return
-
-        raiseError('WV02.1')
+        self._position = value
 
     @property
     def geometry(self):
@@ -63,7 +70,7 @@ class WorldView(Geometry):
     def geometry(self, value):
 
         if value is not None and not isinstance(value, (Geometry,)):
-            raiseError("WV01.1")
+            raise TypeError("Geometry must be represented by an instance of Geometry.")
 
         self._geometry = value
 

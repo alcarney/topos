@@ -3,27 +3,38 @@ import numpy as np
 from magus.inspect import get_parameters
 
 
-from .codefu import prepare_vertex_array_function
-from .errors import raiseError
+from .errors import ToposError
 
+
+class VertexDataError(ToposError):
+    """A vertex array data error."""
+
+
+class VertexAdditionError(ToposError):
+    """A vertex array addition error."""
+
+
+class VertexCoordinateError(ToposError):
+    """A vertex array coordinate error."""
 
 
 class VertexArray(ABC):
 
     _coords = 'xyzrt'
 
+    @VertexDataError.annotate()
     def __init__(self, data):
 
-        if isinstance(data, (np.ndarray,)):
+        if not isinstance(data, (np.ndarray,)):
+            message = "Vertex array must be represented by a numpy array"
+            raise TypeError(message)
 
-            shape = data.shape
+        shape = data.shape
 
-            if len(shape) != 2 or shape[1] != 3:
-                raiseError("VA01.2")
+        if len(shape) != 2 or shape[1] != 3:
+            raise TypeError("Vertex array must have shape (n, 3)")
 
-            self._data = data
-        else:
-            raiseError("VA01.1")
+        self._data = data
 
     def __repr__(self):
         s = self.system + " Array: "
@@ -35,6 +46,7 @@ class VertexArray(ABC):
 
         return s
 
+    @VertexAdditionError.annotate()
     def __add__(self, other):
 
         system = self.system.lower()
@@ -52,12 +64,14 @@ class VertexArray(ABC):
             shape = other.shape
 
             if shape != (3,):
-                raiseError('VA02.1', shape=shape)
+                message = "Incompatible shape {}, array must have shape (3,)"
+                raise TypeError(message.format(shape))
 
             vs = self.__getattribute__(system)
             return self.fromarray(vs + other)
 
-        raiseError('VA02.2', type=type(other))
+        message = "Addition is not supported with type {}"
+        raise TypeError(message.format(type(other)))
 
     @classmethod
     def fromarray(cls, array):
@@ -133,6 +147,7 @@ class VertexArray(ABC):
         for more details."""
         return self.cylindrical[:, 0]
 
+    @VertexCoordinateError.annotate()
     def __getitem__(self, key):
 
         coords = []
@@ -141,22 +156,25 @@ class VertexArray(ABC):
             for c in key:
 
                 if c not in self._coords:
-                    raiseError("VA03.2")
+                    message = "Unknown coordinate variable {}"
+                    raise ValueError(message.format(c))
 
                 coords.append(self.__getattribute__(c))
 
         except TypeError:
-            raiseError("VA03.1")
+            raise TypeError("Coordinates must be specified using an iterable.")
 
         return np.dstack(coords)[0]
 
+    @VertexCoordinateError.annotate()
     def _coord_set_array(self, arr, var):
 
         if not isinstance(arr, (np.ndarray,)):
-            raiseError("VA04.1")
+            raise TypeError("Coordinate values must be specified with a numpy array.")
 
         if arr.shape != (self.length,):
-            raiseError("VA04.2")
+            message = "Coordinate array must have shape ({},)"
+            raise TypeError(message.format(self.length))
 
         self.__getattribute__("set_" + var)(arr)
 

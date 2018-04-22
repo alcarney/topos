@@ -21,7 +21,7 @@ Currently the following geometries are supported:
 from math import pi
 import numpy as np
 
-from topos.core.errors import raiseError
+from .errors import ToposError
 
 
 def planar_vertices(N, xmin=0., xmax=1., ymin=0., ymax=1.):
@@ -60,6 +60,11 @@ def planar_vertices(N, xmin=0., xmax=1., ymin=0., ymax=1.):
     return np.dstack([XS, YS, zeros])[0]
 
 
+class CylindricalVerticesError(ToposError):
+    """a cylindrical vertices error."""
+
+
+@CylindricalVerticesError.annotate()
 def cylindrical_vertices(N_theta, N_z, r=1., zmin=0., zmax=1., theta_min=0.,
                          theta_max=2*pi):
     """Generate a hollow tube of vertices using cylindrical coordinates.
@@ -103,6 +108,13 @@ def cylindrical_vertices(N_theta, N_z, r=1., zmin=0., zmax=1., theta_min=0.,
               of cylindrical coordinates :math:`(\\theta, z, r)`. An array with
               shape :math:`(N_{\\theta}N_z, 3)`
     """
+
+    if not isinstance(N_theta, (int,)):
+        raise TypeError("Argument N_theta must be an integer")
+
+    if N_theta < 1:
+        raise ValueError("Argument N_theta must be positive")
+
 
     # Only include the endpoint if we aren't doing a full loop
     endpoint = theta_max < 2*pi

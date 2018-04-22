@@ -1,7 +1,5 @@
 import numpy as np
-from unittest.mock import patch
-
-
+from pytest import raises
 from topos.core.faces import FaceArray
 
 
@@ -19,20 +17,17 @@ class DummyArray(FaceArray):
 
 class TestInit(object):
 
-    @patch('topos.core.faces.raiseError')
-    def test_with_bad_type(self, Err):
+    def test_with_bad_type(self):
 
-        DummyArray([1, 2, 3, 4])
-        Err.assert_called_once_with("FA01.1")
+        with raises(TypeError):
+            DummyArray([1, 2, 3, 4])
 
-    @patch('topos.core.faces.raiseError')
-    def test_with_bad_shape(self, Err):
+    def test_with_bad_shape(self):
 
-        DummyArray(np.array([1, 2, 3, 4]))
-        Err.assert_called_once_with("FA01.2", sides=4)
+        with raises(TypeError):
+            DummyArray(np.array([1, 2, 3, 4]))
 
-    @patch('topos.core.faces.raiseError')
-    def test_with_bad_dtype(self, Err):
+    def test_with_bad_dtype(self):
 
-        DummyArray(np.array([[1, 2, 3., 4]]))
-        Err.assert_called_once_with("FA01.3")
+        with raises(TypeError):
+            DummyArray(np.array([[1, 2, 3., 4]]))

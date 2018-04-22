@@ -1,6 +1,5 @@
 from pytest import raises
 from hypothesis import given, assume
-from unittest.mock import patch
 import numpy as np
 import numpy.random as npr
 import numpy.testing as npt
@@ -53,17 +52,15 @@ class DummyArray(VertexArray):
 
 class TestInit(object):
 
-    @patch('topos.core.vertices.raiseError')
-    def test_init_bad_type(self, Err):
+    def test_init_bad_type(self):
 
-        DummyArray("string")
-        Err.assert_called_once_with("VA01.1")
+        with raises(TypeError):
+            DummyArray("string")
 
-    @patch('topos.core.vertices.raiseError')
-    def test_init_bad_shape(self, Err):
+    def test_init_bad_shape(self):
 
-        DummyArray(np.array([[[2, 3]]]))
-        Err.assert_called_once_with("VA01.2")
+        with raises(TypeError):
+            DummyArray(np.array([[[2, 3]]]))
 
     @given(vs=cartesian)
     def test_with_array(self, vs):

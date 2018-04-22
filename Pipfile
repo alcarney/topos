@@ -9,6 +9,7 @@ name = 'pypi'
 
 numpy = "*"
 magus = "*"
+erratum = "*"
 
 
 [dev-packages]

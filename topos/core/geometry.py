@@ -1,8 +1,13 @@
 from abc import ABC, abstractmethod
-from .errors import raiseError
+
+from .errors import ToposError
 from .faces import FaceArray
 from .vertices import VertexArray
 from .generators import cylindrical_faces
+
+
+class GeometryNameError(ToposError):
+    """A geometry name error."""
 
 
 class Geometry(ABC):
@@ -36,13 +41,14 @@ class Geometry(ABC):
         return self._name
 
     @name.setter
+    @GeometryNameError.annotate()
     def name(self, value):
 
         if isinstance(value, (str,)):
             self._name = value
             return
 
-        raiseError('GE01.1')
+        raise TypeError('Name must be represented by a string.')
 
     def _repr_hook(self):
         """This method will be called whenever the object's __repr__ string
@@ -96,6 +102,10 @@ class Geometry(ABC):
                 f.write(self.faces.fmt("f " + face_str))
 
 
+class MeshDataError(ToposError):
+    """A mesh data error."""
+
+
 class Mesh(Geometry):
     """A simple container for geometry data.
 
@@ -103,13 +113,14 @@ class Mesh(Geometry):
     it is purely a dumb container for geometry data.
     """
 
+    @MeshDataError.annotate()
     def __init__(self, verts=None, faces=None, name=None):
 
         if verts is not None and not isinstance(verts, (VertexArray,)):
-            raiseError('ME01.1')
+            raise TypeError('Vertices must be represented by a VertexArray')
 
         if faces is not None and not isinstance(faces, (FaceArray,)):
-            raiseError('ME01.2')
+            raise TypeError('Faces must be represented by a FaceArray')
 
 
         self._verts = verts

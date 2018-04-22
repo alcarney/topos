@@ -3,7 +3,6 @@ from math import pi
 import pytest
 from hypothesis import given, assume, settings
 from unittest import TestCase
-from unittest.mock import patch
 
 import numpy as np
 from topos.core.generators import (planar_vertices, planar_faces,
@@ -161,7 +160,7 @@ class TestCylindricalVertices(TestCase):
         assume(N_t > 1)
 
         verts = cylindrical_vertices(N_t, N_z)
-        ts = verts[:,0]
+        ts = verts[:, 0]
 
         # There should be N_t distinct values of theta
         uniques = np.unique(ts)
