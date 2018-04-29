@@ -64,7 +64,7 @@ class CylindricalVerticesError(ToposError):
     """a cylindrical vertices error."""
 
 
-@CylindricalVerticesError.annotate()
+@CylindricalVerticesError
 def cylindrical_vertices(N_theta, N_z, r=1., zmin=0., zmax=1., theta_min=0.,
                          theta_max=2*pi):
     """Generate a hollow tube of vertices using cylindrical coordinates.

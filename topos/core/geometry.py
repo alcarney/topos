@@ -41,7 +41,7 @@ class Geometry(ABC):
         return self._name
 
     @name.setter
-    @GeometryNameError.annotate()
+    @GeometryNameError
     def name(self, value):
 
         if isinstance(value, (str,)):
@@ -113,7 +113,7 @@ class Mesh(Geometry):
     it is purely a dumb container for geometry data.
     """
 
-    @MeshDataError.annotate()
+    @MeshDataError
     def __init__(self, verts=None, faces=None, name=None):
 
         if verts is not None and not isinstance(verts, (VertexArray,)):

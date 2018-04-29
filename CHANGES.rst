@@ -29,6 +29,12 @@
 - **NEW:DOCS**: There is now a :code:`scripts/apidoc.py` script that will
   automatically generate the reference section - much like :code:`sphinx-apidoc`
 
+- **CHANGED:DOCS**: The troubleshooting page is now automatically generated
+  using the :code:`erratum` package. This means that all troubleshooting
+  entries are defined in the codebase alongside the :code:`Error` classes which
+  automatically provide a link to the troubleshooting documentation in the
+  error message.
+
 0.0.6 30/03/2018
 ----------------
 

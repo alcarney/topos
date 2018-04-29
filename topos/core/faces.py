@@ -11,7 +11,7 @@ class FaceDataError(ToposError):
 
 class FaceArray(ABC):
 
-    @FaceDataError.annotate()
+    @FaceDataError
     def __init__(self, data):
 
         # Data must be a numpy array
