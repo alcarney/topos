@@ -1,5 +1,5 @@
-0.0.7 Unreleased
-----------------
+0.1.0 Unreleased
+------------------
 
 **Users**
 
@@ -18,11 +18,20 @@
   + :code:`WorldView`: This allows you to easily place an object in "WorldSpace"
     setting its location and rotation without changing the underlying geometry.
 
+- **NEW:CODE:**: Data Formats!. There is now a standard interface for saving and
+  loading data in various formats. As of this release topos comes with the following
+  implementations:
+
+  + :code:`ObjFormat`: Save Geometries in .obj format
+  + :code:`JsonFormat`: Save and load Geometries in .json format.
+
 - **IMPROVE:CODE**: The implementation of :code:`planar_faces` has been improved
   making it much quicker than the old one for large values of :code:`N`
 
 - **IMPROVE:DOCS**: The docs have had a major redesign hoping to be much more
   readable and easier to navigate.
+- **IMPROVE:DOCS**: The troubleshooting page is now automatically generated and
+  therefore should always reflect the latest
 
 **Contributors**
 
