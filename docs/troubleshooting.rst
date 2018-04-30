@@ -20,12 +20,36 @@ a cylindrical vertices error.
 GeometryNameError
 -----------------
 
-A geometry name error.
+Errors related to the naming of a geometry object.
+
+.. error::
+
+   Name must be represented by a string.
+
+In order to work as expected with the rest of the system, a name
+must be given by a string.
 
 MeshDataError
 -------------
 
-A mesh data error.
+These errors are related to the data you use with a mesh object.
+
+.. error::
+
+    Vertices must be represented by a VertexArray
+
+A number of the tools that work with a :code:`Mesh` and other
+:code:`Geometry` objects expect to work with a :code:`VertexArray`
+object. This means the only way to create a Mesh is to use one of
+these arrays.
+
+.. error::
+
+    Faces must be represented by a FaceArray
+
+As with the error outlined above, many of the tools expect to work
+with :code:`FaceArray` objects so faces in a mesh must be represented
+in this manner.
 
 VertexAdditionError
 -------------------
