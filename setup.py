@@ -27,7 +27,8 @@ setup(name='topos',
       packages=["topos.core"],
       install_requires=[
           'numpy',
-          'magus'
+          'magus',
+          'erratum'
       ],
       setup_requires=['pytest-runner'],
       test_suite='tests',
