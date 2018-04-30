@@ -11,22 +11,22 @@ class FaceDataError(ToposError):
 
 class FaceArray(ABC):
 
-    @FaceDataError
     def __init__(self, data):
 
-        # Data must be a numpy array
-        if not isinstance(data, (np.ndarray)):
-            raise TypeError("Faces must be represented with a numpy array")
-        shape = data.shape
+        with FaceDataError():
 
-        # With shape (n, sides)
-        if len(shape) != 2 or shape[1] != self.num_sides:
-            message = "Face array must have shape (n, {})"
-            raise TypeError(message.format(self.num_sides))
+            if not isinstance(data, (np.ndarray)):
+                raise TypeError("Faces must be represented with a numpy array")
+            shape = data.shape
 
-        # It must have an integer type
-        if not issubclass(data.dtype.type, np.integer):
-            raise TypeError("Faces can only be defined using integers.")
+            # With shape (n, sides)
+            if len(shape) != 2 or shape[1] != self.num_sides:
+                message = "Face array must have shape (n, {})"
+                raise TypeError(message.format(self.num_sides))
+
+            # It must have an integer type
+            if not issubclass(data.dtype.type, np.integer):
+                raise TypeError("Faces can only be defined using integers.")
 
         self._data = data
 
@@ -46,12 +46,13 @@ class FaceArray(ABC):
         format string compatible with Python's :py:meth:`python:str.format` syntax.
 
         :param fmtstr: The format string to apply to each face
-        :type fmtstr: str
         :param prefix: A string to include before the face data
-        :type prefix: str
         :param suffix: A string to include after the face data
-        :type suffix: str
         :param sep: A string to include between each face.
+
+        :type prefix: str
+        :type fmtstr: str
+        :type suffix: str
         :type sep: str
 
         :raises KeyError: The format string cannot contain any named

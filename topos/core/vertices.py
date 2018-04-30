@@ -387,13 +387,15 @@ class VertexArray(ABC):
         format string compatible with Python's :py:meth:`python:str.format` syntax.
 
         :param fmtstr: The format string to apply to each vertex
-        :type fmtstr: str
         :param prefix: A string to include before the vertex data
-        :type prefix: str
         :param suffix: A string to include after the vertex data
-        :type suffix: str
         :param sep: A string to include between each vertex.
+
+        :type fmtstr: str
+        :type prefix: str
+        :type suffix: str
         :type sep: str
+
         :raises KeyError: The format string cannot contain any named
                           substitutions e.g. :code:`{x}`
         :return: :code:`prefix + foreach vertex <fmtstr + sep> + suffix`

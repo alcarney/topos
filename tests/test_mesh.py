@@ -1,7 +1,7 @@
 from pytest import raises
 from hypothesis import given
 from hypothesis.strategies import text
-from .strategies import cartesian, faces
+from .strategies import cartesian, quads
 
 import numpy as np
 from topos.core.geometry import Mesh

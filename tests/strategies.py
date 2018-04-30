@@ -31,6 +31,11 @@ size = integers(min_value=1, max_value=512)
 
 # A strategy representing an arbitrary array of faces
 @composite
-def faces(draw):
+def quads(draw):
     num = draw(size)
     return npr.randint(1, 256, size=(num, 4))
+
+@composite
+def tris(draw):
+    num = draw(size)
+    return npr.randint(1, 256, size=(num, 3))
