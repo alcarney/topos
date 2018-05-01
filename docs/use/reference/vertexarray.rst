@@ -24,13 +24,14 @@ Intialisation
 
 The :code:`VertexArray` objects are just wrappers over a :term:`numpy array`
 providing additional features that are useful when treating these arrays as a
-list of vertices. So create your own vertex array simply pass a numpy array
+list of vertices. To create your own vertex array simply pass a numpy array
 with the right shape to one of these objects.
 
 .. doctest:: ref-vertx-array-init
 
     >>> import numpy as np
     >>> from topos.core.vertices import Cartesian
+
     >>> vs = np.array([[1., 2., .3], [4., 5., 6.]])
     >>> Cartesian(vs)
     Cartesian Array: 2 vertices

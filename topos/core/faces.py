@@ -56,7 +56,7 @@ class FaceArray(ABC):
         :type sep: str
 
         :raises KeyError: The format string cannot contain any named
-        substitutions e.g. :code:`{x}`
+                          substitutions e.g. :code:`{x}`
 
         :return: :code:`prefix + foreach face <fmtstr + sep> + suffix`
         :rtype: str
