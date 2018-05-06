@@ -25,6 +25,12 @@ Glossary
         `Pip <https://docs.python.org/3/installing/index.html>`_ is a Python
         tool that is used to install packages and their dependencies.
 
+    REPL
+        An abbreviation that stands for "Read Eval Print Loop". Many different
+        programming languages have some form of REPL. It allows the user
+        to run small snippets of code and immediately see the result. You can access
+        Python's REPL by typing :code:`python` on the command line.
+
     vertex
         Forms part of a mesh, a collection of vertices define a face, a vertex
         for each corner. Mathematicians would typically refer to one as a point

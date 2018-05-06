@@ -30,6 +30,9 @@ class FaceArray(ABC):
 
         self._data = data
 
+    def __len__(self):
+        return self.length
+
     def __repr__(self):
         s = self.name + " Array: "
 
