@@ -1,44 +1,67 @@
+from abc import ABC, abstractmethod
 import numpy as np
-from .geometry import Mesh
+from .geometry import Geometry, Mesh
 
 
-class Translate(object):
-    """
-    Translate an object by [dx, dy, dz]
-    """
+class VertexTransform(ABC):
+    """A vertex transform is a transform that only acts on the vertices
+    of a geometry."""
 
-    def __init__(self, dx, dy, dz):
+    @abstractmethod
+    def transform(self, verts):
+        pass
 
-        self._offset = np.array([dx, dy, dz])
+    def __rrshift__(self, other):
 
-    def __rrshift__(self, mesh):
+        if not isinstance(other, Geometry):
+            raise TypeError('Transforms can only be applied to Geometry objects')
 
-        vs = mesh._vertices
-        vs += self._offset
+        new_verts = self.transform(other.vertices.copy())
 
-        return Mesh(mesh.name, vertices=vs, faces=mesh.faces,
-                    coord=mesh._coord)
-
-
-class Scale(object):
-    """
-    Scale either in all directions or a specified axis
-    """
-    def __init__(self, all=1.):
-        self._all = all
-
-    def __rrshift__(self, mesh):
-
-        vs = mesh._vertices
-        vs *= self._all
-
-        return Mesh(mesh.name, vertices=vs, faces=mesh.faces,
-                    coord=mesh._coord)
+        return Mesh(verts=new_verts, faces=other.faces, name=other.name)
 
 
-def translate(dx=0., dy=0., dz=0.):
-    return Translate(dx, dy, dz)
+class Displace(VertexTransform):
+    """Displace the vertices in a geometry by a given amount."""
+
+    def __init__(self, x=None, y=None, z=None, r=None, t=None):
+
+        self._displacements = {
+            'x': x,
+            'y': y,
+            'z': z,
+            'r': r,
+            't': t
+        }
+
+    def transform():
+        pass
 
 
-def scale(x):
-    return Scale(all=x)
+class Scale(VertexTransform):
+    """Scale a geometry by a given amount."""
+
+    def __init__(self, dx=None, dy=None, dz=None, dr=None, dt=None):
+
+        self._factors = {
+            'x': dx,
+            'y': dy,
+            'z': dz,
+            'r': dr,
+            't': dt
+        }
+
+    def transform(self, verts):
+
+        for coord, factor in self._factors.items():
+
+            if factor is not None:
+
+                values = verts.__getattribute__(coord)
+                verts.__setattr__(coord, values * factor)
+
+        return verts
+
+
+def scale(dx=None, dy=None, dz=None, dr=None, dt=None):
+    return Scale(dx, dy, dz, dr, dt)

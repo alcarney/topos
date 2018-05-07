@@ -255,6 +255,11 @@ class VertexArray(ABC):
         """Given a numpy array, construct a :py:class:`VertexArray` from it."""
         return cls(array)
 
+    def copy(self):
+        """Return a copy of the array under the same coordinate system."""
+        vs = np.array(self.data)
+        return self.fromarray(vs)
+
     @property
     def system(self):
         """Return a string representing the coorindate system the array uses."""
